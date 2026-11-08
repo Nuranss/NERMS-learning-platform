@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen } from "lucide-react";
+import { BookOpen, ExternalLink } from "lucide-react";
 
 export function Navbar() {
   return (
@@ -32,10 +32,16 @@ export function Navbar() {
             <span>Intro Course</span>
           </Link>
 
-          <span className="hidden sm:flex items-center gap-2 text-emerald-400/90 bg-emerald-500/[0.06] border border-emerald-500/20 px-3 py-1.5 rounded-lg">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[11px] tracking-wider font-semibold">ONLINE</span>
-          </span>
+          <a
+            href="https://aztu.edu.az/az"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white border border-white/[0.1] hover:border-emerald-500/30 transition-all text-xs font-medium active:scale-95 group"
+            title="Azərbaycan Texniki Universiteti"
+          >
+            <span className="font-semibold tracking-wide">AzTU</span>
+            <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 transition-colors" />
+          </a>
         </div>
       </div>
     </header>
