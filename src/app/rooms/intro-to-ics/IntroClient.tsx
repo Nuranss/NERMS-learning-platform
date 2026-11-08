@@ -46,32 +46,32 @@ export function IntroClient() {
     <div className="flex flex-col min-h-screen w-full">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 pb-24">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-7 pb-24">
         {/* Course Banner */}
         <div className="mb-8">
-          <div className="p-6 sm:p-8 rounded-2xl bg-slate-900/40 border border-white/[0.08] shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="nerms-glass-card rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-medium mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono font-medium mb-3">
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>OFFICIAL CURRICULUM</span>
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
                 {course.title}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-300/90 mt-2 leading-relaxed">
                 {course.subtitle}
               </p>
             </div>
 
             {/* Overall Progress Widget */}
-            <div className="w-full md:w-60 p-4 rounded-xl bg-slate-950/70 border border-white/[0.08] shrink-0">
+            <div className="w-full md:w-60 p-4 rounded-xl bg-slate-950/50 border border-white/[0.06] shrink-0 shadow-sm">
               <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-2">
                 <span>COURSE PROGRESS</span>
                 <span className="text-emerald-400 font-bold">{progressPercent}%</span>
               </div>
-              <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div className="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden">
                 <div
-                  className="bg-emerald-500 h-full transition-all duration-300 rounded-full"
+                  className="bg-emerald-500 h-full transition-all duration-300 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.3)]"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -106,16 +106,16 @@ export function IntroClient() {
                   onClick={() => setActiveTaskIdx(idx)}
                   className={`w-full text-left p-3.5 rounded-xl border transition-all flex items-start gap-3 ${
                     active
-                      ? "bg-slate-800/90 border-emerald-500/50 shadow-md translate-x-1"
-                      : "bg-slate-900/40 border-white/[0.06] hover:bg-slate-900/70 hover:border-white/10"
+                      ? "bg-slate-800/80 border-emerald-500/40 shadow-sm translate-x-1"
+                      : "bg-slate-900/30 border-white/[0.05] hover:bg-slate-900/60 hover:border-white/10"
                   }`}
                 >
                   <div
-                    className={`w-6 h-6 rounded-md font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 ${
+                    className={`w-6 h-6 rounded-md font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
                       completed
-                        ? "bg-emerald-500 text-slate-950"
+                        ? "bg-emerald-500 text-slate-950 font-bold"
                         : active
-                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                        ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
                         : "bg-slate-800 text-slate-400"
                     }`}
                   >
@@ -124,8 +124,8 @@ export function IntroClient() {
 
                   <div className="flex-1 min-w-0">
                     <h4
-                      className={`text-xs font-semibold leading-snug ${
-                        active ? "text-white font-bold" : "text-slate-300"
+                      className={`text-xs font-semibold leading-snug transition-colors ${
+                        active ? "text-white" : "text-slate-300"
                       }`}
                     >
                       {task.title}
@@ -139,7 +139,7 @@ export function IntroClient() {
             })}
 
             {isAllCourseCompleted && (
-              <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs text-emerald-300 flex items-center gap-2.5 mt-4">
+              <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/25 text-xs text-emerald-300 flex items-center gap-2.5 mt-4">
                 <Trophy className="w-5 h-5 text-emerald-400 shrink-0" />
                 <span className="font-semibold leading-relaxed">
                   Congratulations! All questions completed.
@@ -150,9 +150,9 @@ export function IntroClient() {
 
           {/* Right Column (Lesson Reading & Quizzes) */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
-            <article className="p-6 sm:p-10 rounded-2xl bg-slate-900/40 border border-white/[0.08] shadow-xl space-y-6">
+            <article className="nerms-glass-panel rounded-2xl p-6 sm:p-10 space-y-6">
               {/* Task Title */}
-              <div className="pb-4 border-b border-white/[0.08]">
+              <div className="pb-4 border-b border-white/[0.06]">
                 <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold mb-1">
                   <span>TASK {activeTask.id} OF {course.tasks.length}</span>
                 </div>
@@ -164,8 +164,8 @@ export function IntroClient() {
                 </p>
               </div>
 
-              {/* Lesson Narrative Content */}
-              <div className="space-y-4 text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
+              {/* Lesson Narrative Content - Comfortable reading leading and contrast */}
+              <div className="space-y-4 text-xs sm:text-[14px] text-slate-200 leading-[1.75] font-normal">
                 {activeTask.content.map((paragraph, pIdx) => (
                   <p key={pIdx}>{paragraph}</p>
                 ))}
@@ -177,12 +177,12 @@ export function IntroClient() {
               {activeTask.hasDiagram === "purdue" && <PurdueDiagram />}
 
               {/* Key Takeaways Box */}
-              <div className="p-4 sm:p-5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 space-y-2">
+              <div className="p-4 sm:p-5 rounded-xl bg-emerald-950/[0.15] border border-emerald-500/20 space-y-2">
                 <h4 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   Key Takeaways
                 </h4>
-                <ul className="text-xs sm:text-sm text-slate-300 space-y-1.5 list-disc list-inside">
+                <ul className="text-xs sm:text-[13px] text-slate-300 space-y-1.5 list-disc list-inside">
                   {activeTask.keyTakeaways.map((item, kIdx) => (
                     <li key={kIdx} className="leading-relaxed">
                       {item}
@@ -192,7 +192,7 @@ export function IntroClient() {
               </div>
 
               {/* TryHackMe-Fashion Quizzes */}
-              <div className="pt-6 border-t border-white/[0.08] space-y-4">
+              <div className="pt-6 border-t border-white/[0.06] space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-emerald-400" />
@@ -221,12 +221,12 @@ export function IntroClient() {
               </div>
 
               {/* Stepper Navigation Buttons */}
-              <div className="pt-6 border-t border-white/[0.08] flex items-center justify-between">
+              <div className="pt-6 border-t border-white/[0.06] flex items-center justify-between">
                 <button
                   type="button"
                   disabled={activeTaskIdx === 0}
                   onClick={() => setActiveTaskIdx((prev) => Math.max(0, prev - 1))}
-                  className="px-4 py-2 rounded-xl text-xs font-medium bg-white/5 hover:bg-white/10 text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                  className="px-4 py-2 rounded-xl text-xs font-medium bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-[0.98]"
                 >
                   ← Previous Task
                 </button>
@@ -235,7 +235,7 @@ export function IntroClient() {
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx((prev) => Math.min(course.tasks.length - 1, prev + 1))}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all flex items-center gap-1.5 active:scale-[0.98]"
                   >
                     <span>Next Task</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -244,7 +244,7 @@ export function IntroClient() {
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx(0)}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 hover:bg-emerald-500/25 transition-all flex items-center gap-1.5 active:scale-[0.98]"
                   >
                     <span>Review from Task 1</span>
                     <ChevronRight className="w-3.5 h-3.5" />
