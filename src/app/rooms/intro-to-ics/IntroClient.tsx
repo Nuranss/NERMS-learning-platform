@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { INTRO_COURSE_DATA, IntroTask } from "@/mock/introCourseData";
@@ -10,16 +9,13 @@ import { PurdueDiagram } from "@/components/learn/PurdueDiagram";
 import { ComponentFlowDiagram } from "@/components/learn/ComponentFlowDiagram";
 import { QuizQuestion } from "@/components/learn/QuizQuestion";
 import {
-  ArrowLeft,
   BookOpen,
-  CheckCircle2,
-  Clock,
   Sparkles,
   Award,
   ChevronRight,
   ShieldCheck,
   Check,
-  Flame,
+  Trophy,
 } from "lucide-react";
 
 export function IntroClient() {
@@ -41,53 +37,46 @@ export function IntroClient() {
 
   const activeTask = course.tasks[activeTaskIdx];
 
-  // Helper to check if a specific task has all quizzes answered
   const isTaskCompleted = (task: IntroTask) => {
     return task.quizzes.every((q) => solvedQuizIds.includes(q.id));
   };
 
+  const isAllCourseCompleted = solvedCount === totalQuestions;
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-full">
       <Navbar />
 
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 pt-6 pb-20">
-        {/* Back Link & Header Summary */}
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 pt-5 pb-16">
+        {/* Course Banner */}
         <div className="mb-6">
-          <Link
-            href="/"
-            className="text-xs font-medium text-slate-400 hover:text-emerald-400 flex items-center gap-1.5 transition-colors mb-3"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back to Home
-          </Link>
-
-          <div className="p-6 rounded-2xl bg-slate-900/40 border border-white/[0.08] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="p-5 rounded-2xl bg-slate-900/40 border border-white/[0.08] flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-medium mb-2">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-medium mb-1.5">
                 <BookOpen className="w-3.5 h-3.5" />
-                <span>FOUNDATIONAL MODULE</span>
+                <span>OFFICIAL CURRICULUM</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                 {course.title}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
+              <p className="text-xs text-slate-400 mt-1 max-w-xl leading-relaxed">
                 {course.subtitle}
               </p>
             </div>
 
             {/* Overall Progress Widget */}
-            <div className="w-full md:w-56 p-3.5 rounded-xl bg-slate-950/60 border border-white/5 shrink-0">
-              <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-1.5">
-                <span>COURSE PROGRESS</span>
+            <div className="w-full md:w-52 p-3 rounded-xl bg-slate-950/60 border border-white/5 shrink-0">
+              <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-1">
+                <span>PROGRESS</span>
                 <span className="text-emerald-400 font-bold">{progressPercent}%</span>
               </div>
-              <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+              <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
                 <div
                   className="bg-emerald-500 h-full transition-all duration-300 rounded-full"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-              <p className="text-[11px] text-slate-400 mt-1.5 font-mono">
+              <p className="text-[10px] text-slate-400 mt-1 font-mono">
                 {solvedCount} of {totalQuestions} questions solved
               </p>
             </div>
@@ -95,9 +84,9 @@ export function IntroClient() {
         </div>
 
         {/* Course Body: Two-Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column (4 cols): Task Navigation Stepper */}
-          <div className="lg:col-span-4 space-y-2 sticky top-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          {/* Left Column (4 cols): Task Outline Stepper */}
+          <div className="lg:col-span-4 space-y-1.5 sticky top-16">
             <h3 className="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider px-1 mb-2">
               Course Outline
             </h3>
@@ -111,14 +100,14 @@ export function IntroClient() {
                 <button
                   key={task.id}
                   onClick={() => setActiveTaskIdx(idx)}
-                  className={`w-full text-left p-3.5 rounded-xl border transition-all flex items-start gap-3 ${
+                  className={`w-full text-left p-3 rounded-xl border transition-all flex items-start gap-2.5 ${
                     active
                       ? "bg-slate-800/80 border-emerald-500/40 shadow-sm"
                       : "bg-slate-900/30 border-white/[0.06] hover:bg-slate-900/60 hover:border-white/10"
                   }`}
                 >
                   <div
-                    className={`w-6 h-6 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 ${
+                    className={`w-5 h-5 rounded font-mono font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5 ${
                       completed
                         ? "bg-emerald-500 text-slate-950"
                         : active
@@ -126,7 +115,7 @@ export function IntroClient() {
                         : "bg-slate-800 text-slate-400"
                     }`}
                   >
-                    {completed ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : task.id}
+                    {completed ? <Check className="w-3 h-3 stroke-[3]" /> : task.id}
                   </div>
 
                   <div className="flex-1 min-w-0">
@@ -137,64 +126,57 @@ export function IntroClient() {
                     >
                       {task.title}
                     </h4>
-                    <p className="text-[11px] text-slate-500 font-mono mt-0.5">
-                      {taskSolvedCount}/{task.quizzes.length} questions
+                    <p className="text-[10px] text-slate-500 font-mono">
+                      {taskSolvedCount}/{task.quizzes.length} answered
                     </p>
                   </div>
                 </button>
               );
             })}
 
-            {/* Quick link to practice lab */}
-            <div className="p-4 rounded-xl bg-slate-900/20 border border-white/5 mt-4 text-xs text-slate-400">
-              <span className="font-semibold text-slate-300 block mb-1">Ready for hands-on?</span>
-              <p className="text-[11px] leading-relaxed mb-2">
-                After completing the basics, practice attacking an unauthenticated PLC in our virtual plant.
-              </p>
-              <Link
-                href="/rooms/water-treatment"
-                className="text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center gap-1"
-              >
-                Launch Water Treatment Lab →
-              </Link>
-            </div>
+            {isAllCourseCompleted && (
+              <div className="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs text-emerald-300 flex items-center gap-2 mt-3">
+                <Trophy className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span className="font-semibold">All 14 questions completed! Great job!</span>
+              </div>
+            )}
           </div>
 
           {/* Right Column (8 cols): Active Lesson Reading & Quizzes */}
-          <div className="lg:col-span-8 space-y-6">
-            <article className="p-6 sm:p-8 rounded-2xl bg-slate-900/40 border border-white/[0.08] space-y-6">
+          <div className="lg:col-span-8 space-y-5">
+            <article className="p-5 sm:p-7 rounded-2xl bg-slate-900/40 border border-white/[0.08] space-y-5">
               {/* Task Title */}
-              <div className="pb-4 border-b border-white/[0.06]">
-                <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1">
+              <div className="pb-3 border-b border-white/[0.06]">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-emerald-400 mb-1">
                   <span>TASK {activeTask.id} OF {course.tasks.length}</span>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
                   {activeTask.title}
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                <p className="text-xs text-slate-400 mt-1">
                   {activeTask.shortDescription}
                 </p>
               </div>
 
               {/* Lesson Narrative Content */}
-              <div className="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <div className="space-y-3.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 {activeTask.content.map((paragraph, pIdx) => (
                   <p key={pIdx}>{paragraph}</p>
                 ))}
               </div>
 
-              {/* Embedded Visual Diagram (if applicable) */}
+              {/* Embedded Visual Diagrams */}
               {activeTask.hasDiagram === "triad" && <TriadDiagram />}
               {activeTask.hasDiagram === "components" && <ComponentFlowDiagram />}
               {activeTask.hasDiagram === "purdue" && <PurdueDiagram />}
 
               {/* Key Takeaways Box */}
-              <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/20 space-y-2">
-                <h4 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <div className="p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 space-y-1.5">
+                <h4 className="text-[11px] font-bold font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   Key Takeaways
                 </h4>
-                <ul className="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                <ul className="text-xs text-slate-300 space-y-1 list-disc list-inside">
                   {activeTask.keyTakeaways.map((item, kIdx) => (
                     <li key={kIdx} className="leading-relaxed">
                       {item}
@@ -204,18 +186,18 @@ export function IntroClient() {
               </div>
 
               {/* TryHackMe-Fashion Quizzes */}
-              <div className="pt-6 border-t border-white/[0.08] space-y-4">
+              <div className="pt-5 border-t border-white/[0.08] space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <h3 className="text-xs font-bold text-white flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
                     Knowledge Checks ({activeTask.quizzes.length})
                   </h3>
-                  <span className="text-xs text-slate-400 font-mono">
-                    Type your answer in the box below
+                  <span className="text-[11px] text-slate-400 font-mono">
+                    Type your answer below
                   </span>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {activeTask.quizzes.map((quiz) => (
                     <QuizQuestion
                       key={quiz.id}
@@ -233,33 +215,34 @@ export function IntroClient() {
               </div>
 
               {/* Stepper Navigation Buttons */}
-              <div className="pt-6 border-t border-white/[0.06] flex items-center justify-between">
+              <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between">
                 <button
                   type="button"
                   disabled={activeTaskIdx === 0}
                   onClick={() => setActiveTaskIdx((prev) => Math.max(0, prev - 1))}
-                  className="px-4 py-2 rounded-xl text-xs font-medium bg-white/5 hover:bg-white/10 text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-all"
+                  className="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-white/5 hover:bg-white/10 text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-all"
                 >
-                  ← Previous Task
+                  ← Previous
                 </button>
 
                 {activeTaskIdx < course.tasks.length - 1 ? (
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx((prev) => Math.min(course.tasks.length - 1, prev + 1))}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all flex items-center gap-1.5"
+                    className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all flex items-center gap-1"
                   >
                     <span>Next Task</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 ) : (
-                  <Link
-                    href="/rooms/water-treatment"
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-bold shadow-md transition-all flex items-center gap-1.5"
+                  <button
+                    type="button"
+                    onClick={() => setActiveTaskIdx(0)}
+                    className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all flex items-center gap-1"
                   >
-                    <span>Proceed to Hands-On Lab</span>
+                    <span>Review from Start</span>
                     <ChevronRight className="w-3.5 h-3.5" />
-                  </Link>
+                  </button>
                 )}
               </div>
             </article>
