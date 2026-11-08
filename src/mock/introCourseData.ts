@@ -1,7 +1,7 @@
 export interface IntroQuiz {
   id: string;
   question: string;
-  correctAnswers: string[];
+  correctHashes: string[];
   hint: string;
   formatGuide?: string;
   points: number;
@@ -52,7 +52,11 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q1-1",
           question: "In the OT security triad, which principle is prioritized above all others to ensure uninterrupted physical safety and operation?",
-          correctAnswers: ["Availability", "Safety", "Availability and Safety"],
+          correctHashes: [
+            "442fa5ff1529f510b9611896d0624c889dd85cf34fe0686562ce5b060f06dac7",
+            "d6adf55564110f44f994dbbf746f064dac8acbbcf7c423f9c569c55011cb9632",
+            "d05c1c704e413b8f49ee26ae4e5d9375f6cd7493bfc7b8736875132f713db46c"
+          ],
           hint: "Think about keeping power grids and water pumps running 24/7 without reboots.",
           formatGuide: "e.g. Confidentiality / Integrity / Availability",
           points: 10,
@@ -60,7 +64,10 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q1-2",
           question: "What general umbrella term describes computing systems that directly monitor or control physical machinery and industrial processes?",
-          correctAnswers: ["Operational Technology", "OT"],
+          correctHashes: [
+            "ecc729403e7168db93940fbd34f57bf13d67dc9185d42d1c8fa27ab4b54d9c58",
+            "ae117aa7cc91d8b0b09c53c9984b807d8b55c70c0a3278c40afb5ca8387df0ee"
+          ],
           hint: "Often contrasted with Information Technology (IT). Abbreviated as OT.",
           formatGuide: "e.g. Operational Technology",
           points: 10,
@@ -92,7 +99,10 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q2-1",
           question: "What ruggedized industrial computer directly executes automation programs (like Ladder Logic) to control physical actuators?",
-          correctAnswers: ["PLC", "Programmable Logic Controller"],
+          correctHashes: [
+            "529de0e3226575164acaeba456d52259f10d19031e843e56cda2081e2b78e9d2",
+            "3e7919cdee72f6fc03c28dbb43f8f974c10b4c255a3e2537035573435dbc5a9a"
+          ],
           hint: "A three-letter acronym starting with P.",
           formatGuide: "e.g. PLC",
           points: 10,
@@ -100,7 +110,11 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q2-2",
           question: "What visual screen interface allows human operators to monitor sensor telemetry and issue supervisory commands to the plant?",
-          correctAnswers: ["HMI", "Human Machine Interface", "Human-Machine Interface"],
+          correctHashes: [
+            "655deaa5c89411c42c56d3ebfb9e9837aae23cbf711f08fa8a45abf9d55e13cd",
+            "f23b9323d605d2c7b6ccccb6f5f676f9c865931b5b36106df7f323e214d4deb9",
+            "7083b825f4cccb852a6e1a2c9db97f4fc25bc74268a24e1e8dccfeaad0b39bd5"
+          ],
           hint: "Stands for Human-Machine Interface.",
           formatGuide: "e.g. HMI",
           points: 10,
@@ -108,7 +122,11 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q2-3",
           question: "What specialized industrial database continuously archives time-series sensor logs, alarms, and setpoints for historical auditing?",
-          correctAnswers: ["Historian", "Data Historian", "Process Historian"],
+          correctHashes: [
+            "c924248ffe3ec89bdb9f3ff87eed0ffa4c26120a2903d79c38d9753e9f97dd92",
+            "7c7d91deed6ec3f148b009341430edf281c058b6b18045bfb096be6f83b20488",
+            "9b286de9450d0011185a0ebe8e26dd80f8cea9d68453ec363b900b1a48d2ec6e"
+          ],
           hint: "The word comes from recording the plant's history.",
           formatGuide: "e.g. Historian",
           points: 10,
@@ -140,7 +158,10 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q3-1",
           question: "At which Purdue Model level do physical actuators, sensors, and valves reside?",
-          correctAnswers: ["Level 0", "0"],
+          correctHashes: [
+            "3d48ba6863da2ad248a8066ef1e51440be965081694b517099a379d454ae073a",
+            "a05993a050c4fdf848d899ec6f5320870e9065733577e9d1431a433f11238494"
+          ],
           hint: "The lowest foundational level touching physical reality.",
           formatGuide: "e.g. Level 0",
           points: 10,
@@ -148,7 +169,11 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q3-2",
           question: "What is the standard reference model called that defines the hierarchical segmentation of industrial automation networks?",
-          correctAnswers: ["Purdue Model", "Purdue", "PERA"],
+          correctHashes: [
+            "0442a7e05f5a08eec4f4e55385d4ace9fcf0223cbdebe83d301de52778045478",
+            "d2a8fc52f78cbdd303b3cd3633b86ffd5693540dbf8b4e51d06e4892e5096a17",
+            "5e8fa50ee06999ddd378f3aa5166f46162ded117ae1f94dff218912c7ecf552d"
+          ],
           hint: "Named after the university where Theodore Williams originated it.",
           formatGuide: "e.g. Purdue Model",
           points: 10,
@@ -156,7 +181,11 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q3-3",
           question: "What intermediate security buffer zone (often designated Level 3.5) separates corporate business IT from plant floor operations?",
-          correctAnswers: ["IDMZ", "Industrial DMZ", "DMZ"],
+          correctHashes: [
+            "a331cf5403fb3c260db0a50b1beca1d175ff6c50b23c91eebc7e5ddec2db1748",
+            "d2c91f8a793a827bca8f1af72a95c0bf9d854fea1a8554186ea120230fcaa452",
+            "3a54f493d848f140656f0e2a0d9c0edd54e4603d0947c9de3b9466762df8ab1e"
+          ],
           hint: "An acronym standing for Industrial Demilitarized Zone.",
           formatGuide: "e.g. IDMZ",
           points: 10,
@@ -190,7 +219,9 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q4-1",
           question: "What standard TCP port is utilized by Modbus TCP communication?",
-          correctAnswers: ["502"],
+          correctHashes: [
+            "8f7883b791032befa565304bc5e6b81258919f99de4cec7ad5249acb185e7818"
+          ],
           hint: "A standard 3-digit port number.",
           formatGuide: "e.g. 502",
           points: 10,
@@ -198,7 +229,10 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q4-2",
           question: "In Modbus, what data type represents a single-bit read/write discrete output, typically used to turn a physical motor or valve ON or OFF?",
-          correctAnswers: ["Coil", "Coils"],
+          correctHashes: [
+            "03b481aabc9669f2d028ba0667beb47a93159529fd4e39a38915155b08ec971f",
+            "5828440844989f11f82ad32f8b0b3d9bb7dffced53627ad49cee2fc1d5ba8267"
+          ],
           hint: "Named after electrical relay coils.",
           formatGuide: "e.g. Coil",
           points: 10,
@@ -206,7 +240,10 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q4-3",
           question: "True or False: Classic industrial protocols like standard Modbus TCP require a cryptographic password to issue command overrides.",
-          correctAnswers: ["False", "false", "no"],
+          correctHashes: [
+            "53fc4a1dba1186bd2571f6d0785824eaa28f1de9343f56ac51fc5bfad51e4ec3",
+            "30af7e098d36bcc29b1f317a098b5ecafa575cd70c05a4519d7432c8ed2a1f1b"
+          ],
           hint: "Remember: legacy protocols are insecure by design.",
           formatGuide: "True or False",
           points: 10,
@@ -234,7 +271,9 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q5-1",
           question: "What was the name of the historic 2010 malware discovered targeting Iranian uranium enrichment centrifuges by manipulating Siemens PLCs?",
-          correctAnswers: ["Stuxnet"],
+          correctHashes: [
+            "0384517d95a94321866b7f1fcea1c26baf7c179a26cfbbeca5d33d4c5cccb5a0"
+          ],
           hint: "The world's most famous cyber weapon.",
           formatGuide: "e.g. Stuxnet",
           points: 10,
@@ -242,7 +281,10 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q5-2",
           question: "What independent safety controller system serves as the physical failsafe of last resort to initiate an emergency shutdown during a disaster?",
-          correctAnswers: ["SIS", "Safety Instrumented System"],
+          correctHashes: [
+            "c903e1e59d8c438f242878d3a2805143a32d987aab39ac14243904e5a59cd07e",
+            "42942abf9fc8ec300cd9d38acc1fe3b476730c9b0144918e627da8fe46b07f2b"
+          ],
           hint: "A three-letter acronym.",
           formatGuide: "e.g. SIS",
           points: 10,
@@ -250,7 +292,11 @@ export const INTRO_COURSE_DATA: IntroCourse = {
         {
           id: "q5-3",
           question: "What malware framework caused a regional blackout in Ukraine in 2016 by manipulating native power grid protocols to open circuit breakers?",
-          correctAnswers: ["Industroyer", "CrashOverride", "Crash Override"],
+          correctHashes: [
+            "493c73747bbef239c838c0bf0ef338bf57a6dda1861713ab5dd5c2cfae4614eb",
+            "ce382bd051a40d1b5fa19ee905eaf8e72933115da52c78c1bccec72de6c43358",
+            "23848dce1c78f9d5eb9a027357627bc10eafc15dab12ebe47054b0f820f46538"
+          ],
           hint: "Also known by its alias CrashOverride.",
           formatGuide: "e.g. Industroyer",
           points: 10,

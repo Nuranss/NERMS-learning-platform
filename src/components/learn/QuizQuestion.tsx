@@ -1,56 +1,75 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, HelpCircle, Send, Sparkles } from "lucide-react";
+import { CheckCircle2, HelpCircle, Send, Loader2 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { verifyQuizAnswer } from "@/lib/quizCrypto";
 
 interface QuizQuestionProps {
   id: string;
   question: string;
-  correctAnswers: string[];
+  correctHashes: string[];
   hint?: string;
   formatGuide?: string;
   points?: number;
   isSolved: boolean;
-  onSolve: (id: string) => void;
+  savedAnswer?: string;
+  onSolve: (id: string, solvedAnswer?: string) => void;
 }
 
 export function QuizQuestion({
   id,
   question,
-  correctAnswers,
+  correctHashes,
   hint,
   formatGuide = "Answer...",
   points = 10,
   isSolved,
+  savedAnswer,
   onSolve,
 }: QuizQuestionProps) {
   const [inputVal, setInputVal] = useState("");
   const [showHint, setShowHint] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [isChecking, setIsChecking] = useState(false);
+  const [solvedText, setSolvedText] = useState(savedAnswer || "");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSolved) return;
+    if (isSolved || isChecking) return;
 
-    const trimmed = inputVal.trim().toLowerCase();
-    const isCorrect = correctAnswers.some((ans) => ans.trim().toLowerCase() === trimmed);
+    if (!inputVal.trim()) {
+      setErrorMsg("Please enter an answer before submitting.");
+      return;
+    }
 
-    if (isCorrect) {
-      setErrorMsg("");
-      onSolve(id);
-      try {
-        confetti({
-          particleCount: 45,
-          spread: 45,
-          origin: { y: 0.8 },
-          colors: ["#10b981", "#34d399", "#38bdf8"],
-        });
-      } catch (err) {
-        // Fallback
+    setIsChecking(true);
+    setErrorMsg("");
+
+    try {
+      const isCorrect = await verifyQuizAnswer(inputVal, correctHashes);
+
+      if (isCorrect) {
+        const cleanAnswer = inputVal.trim();
+        setSolvedText(cleanAnswer);
+        onSolve(id, cleanAnswer);
+        try {
+          confetti({
+            particleCount: 45,
+            spread: 45,
+            origin: { y: 0.8 },
+            colors: ["#10b981", "#34d399", "#38bdf8"],
+          });
+        } catch {
+          // Fallback
+        }
+      } else {
+        setErrorMsg("Incorrect answer. Review the notes above or check the hint.");
       }
-    } else {
-      setErrorMsg("Incorrect answer. Review the notes above or check the hint.");
+    } catch {
+      setErrorMsg("Failed to verify answer. Please try again.");
+    } finally {
+      setIsChecking(false);
     }
   };
 
@@ -80,8 +99,8 @@ export function QuizQuestion({
       {isSolved ? (
         <div className="flex items-center gap-2 pt-2.5 border-t border-emerald-500/15 text-xs font-mono text-emerald-300/90">
           <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span className="font-semibold">{correctAnswers[0]}</span>
-          <span className="text-slate-500 text-[11px] font-sans font-normal ml-auto">Correct</span>
+          <span className="font-semibold">{solvedText || savedAnswer || "Verified"}</span>
+          <span className="text-slate-500 text-[11px] font-sans font-normal ml-auto">Verified</span>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-2 pt-2.5 border-t border-white/[0.06]">
@@ -89,16 +108,27 @@ export function QuizQuestion({
             <input
               type="text"
               value={inputVal}
+              disabled={isChecking}
               onChange={(e) => setInputVal(e.target.value)}
               placeholder={formatGuide}
-              className="flex-1 px-3.5 py-2 rounded-lg nerms-input text-xs font-mono placeholder:text-slate-500 focus:outline-none"
+              className="flex-1 px-3.5 py-2 rounded-lg nerms-input text-xs font-mono placeholder:text-slate-500 focus:outline-none disabled:opacity-50"
             />
             <button
               type="submit"
-              className="px-4 py-2 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm active:scale-[0.97] transition-all flex items-center gap-1.5 shrink-0"
+              disabled={isChecking}
+              className="px-4 py-2 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm active:scale-[0.97] transition-all flex items-center gap-1.5 shrink-0 disabled:opacity-50"
             >
-              <span>Submit</span>
-              <Send className="w-3 h-3" />
+              {isChecking ? (
+                <>
+                  <span>Checking</span>
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                </>
+              ) : (
+                <>
+                  <span>Submit</span>
+                  <Send className="w-3 h-3" />
+                </>
+              )}
             </button>
           </div>
 

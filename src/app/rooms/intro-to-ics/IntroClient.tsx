@@ -19,8 +19,10 @@ import {
 
 export function IntroClient() {
   const course = INTRO_COURSE_DATA;
-  const [solvedQuizIds, setSolvedQuizIds] = useState<string[]>([]);
+  const [solvedAnswers, setSolvedAnswers] = useState<Record<string, string>>({});
   const [activeTaskIdx, setActiveTaskIdx] = useState<number>(0);
+
+  const solvedQuizIds = Object.keys(solvedAnswers);
 
   // Total questions count
   const allQuizzes = course.tasks.flatMap((t) => t.quizzes);
@@ -28,10 +30,11 @@ export function IntroClient() {
   const solvedCount = solvedQuizIds.length;
   const progressPercent = Math.round((solvedCount / totalQuestions) * 100);
 
-  const handleSolveQuestion = (quizId: string) => {
-    if (!solvedQuizIds.includes(quizId)) {
-      setSolvedQuizIds((prev) => [...prev, quizId]);
-    }
+  const handleSolveQuestion = (quizId: string, answer?: string) => {
+    setSolvedAnswers((prev) => ({
+      ...prev,
+      [quizId]: answer || "Verified",
+    }));
   };
 
   const activeTask = course.tasks[activeTaskIdx];
@@ -209,11 +212,12 @@ export function IntroClient() {
                       key={quiz.id}
                       id={quiz.id}
                       question={quiz.question}
-                      correctAnswers={quiz.correctAnswers}
+                      correctHashes={quiz.correctHashes}
                       hint={quiz.hint}
                       formatGuide={quiz.formatGuide}
                       points={quiz.points}
-                      isSolved={solvedQuizIds.includes(quiz.id)}
+                      isSolved={Boolean(solvedAnswers[quiz.id])}
+                      savedAnswer={solvedAnswers[quiz.id]}
                       onSolve={handleSolveQuestion}
                     />
                   ))}
