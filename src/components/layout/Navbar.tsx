@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { BookOpen } from "lucide-react";
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#080b13]/80 backdrop-blur-xl px-4 sm:px-8 py-3.5 transition-colors">
+    <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#080b13]/85 backdrop-blur-xl px-4 sm:px-8 py-3.5 transition-colors">
       <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
         {/* Left: NERMS Logo */}
         <div className="flex items-center">
@@ -21,14 +22,19 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Right: Clean, restrained status badge */}
-        <div className="flex items-center gap-3.5 text-xs font-mono">
-          <span className="hidden sm:inline-block text-slate-400 text-[11px] tracking-wide border-r border-white/[0.08] pr-3.5">
-            ICS // OT SECURITY
-          </span>
-          <span className="flex items-center gap-2 text-emerald-400/90 bg-emerald-500/[0.08] border border-emerald-500/20 px-3 py-1 rounded-full shadow-sm">
+        {/* Right: Clean, restrained action & status */}
+        <div className="flex items-center gap-3 text-xs font-mono">
+          <Link
+            href="/rooms/intro-to-ics"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/25 transition-all text-xs font-medium active:scale-95"
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Intro Course</span>
+          </Link>
+
+          <span className="hidden sm:flex items-center gap-2 text-emerald-400/90 bg-emerald-500/[0.06] border border-emerald-500/20 px-2.5 py-1.5 rounded-lg">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-medium text-[11px] tracking-wider">ONLINE</span>
+            <span className="text-[11px] tracking-wider font-semibold">ONLINE</span>
           </span>
         </div>
       </div>
