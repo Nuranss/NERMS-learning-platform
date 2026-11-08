@@ -11,27 +11,27 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen w-full">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-10 sm:pt-14 pb-24 flex flex-col items-center">
-        {/* Hero Header */}
-        <section className="text-center max-w-3xl mx-auto mb-10">
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pt-10 sm:pt-14 pb-24 flex flex-col items-center">
+        {/* Hero Header - Widescreen stretch */}
+        <section className="text-center max-w-4xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono font-medium mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>CRITICAL INFRASTRUCTURE DEFENSE</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-[1.15] mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] mb-4">
             Understand the Physics. <br />
             <span className="text-emerald-400">Defend the Control Systems.</span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xs sm:text-base text-slate-300 leading-relaxed max-w-3xl mx-auto">
             A clear, visual introduction to Industrial Control Systems (ICS), SCADA architectures,
             and the unique principles of Operational Technology security.
           </p>
         </section>
 
-        {/* Center Presentation Showcase */}
-        <section className="w-full mb-8">
+        {/* Center Presentation Showcase - Stretched to 1400px+ */}
+        <section className="w-full mb-10">
           <PresentationShowcase />
         </section>
 
@@ -39,15 +39,15 @@ export default function HomePage() {
         <section className="flex flex-col items-center text-center space-y-4 mb-20">
           <Link
             href="/rooms/intro-to-ics"
-            className="group px-7 py-3.5 rounded-xl font-semibold text-sm sm:text-base bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/40 active:scale-[0.98] transition-all flex items-center gap-2.5 border border-emerald-400/20"
+            className="group px-8 py-4 rounded-xl font-semibold text-sm sm:text-base bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/40 active:scale-[0.98] transition-all flex items-center gap-2.5 border border-emerald-400/20"
           >
-            <BookOpen className="w-4 h-4" />
+            <BookOpen className="w-5 h-5" />
             <span>Enter Course: Introduction to ICS</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Link>
 
           {/* Clean Course Feature Chips */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-[11px] sm:text-xs text-slate-400 font-mono">
+          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2 text-xs text-slate-400 font-mono">
             <span className="flex items-center gap-1.5">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
               5 Foundational Modules
@@ -70,8 +70,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* All Courses Segment */}
-        <section className="w-full max-w-4xl border-t border-white/[0.08] pt-14">
+        {/* All Courses Segment - Stretched to match presentation showcase */}
+        <section className="w-full max-w-6xl xl:max-w-7xl border-t border-white/[0.08] pt-14">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1">
@@ -86,7 +86,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <span className="text-xs font-mono text-slate-500 bg-white/[0.04] border border-white/[0.06] px-3 py-1 rounded-lg">
+            <span className="text-xs font-mono text-slate-400 bg-white/[0.04] border border-white/[0.06] px-3 py-1.5 rounded-lg">
               Showing {COURSES_CATALOG.length} Course
             </span>
           </div>
