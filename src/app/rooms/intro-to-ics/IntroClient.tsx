@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { INTRO_COURSE_DATA, IntroTask } from "@/mock/introCourseData";
+import { getIntroCourseData, IntroTask } from "@/mock/introCourseData";
 import { TriadDiagram } from "@/components/learn/TriadDiagram";
 import { PurdueDiagram } from "@/components/learn/PurdueDiagram";
 import { ComponentFlowDiagram } from "@/components/learn/ComponentFlowDiagram";
 import { QuizQuestion } from "@/components/learn/QuizQuestion";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { useTranslation } from "@/i18n/translations";
 import {
   BookOpen,
   Sparkles,
@@ -18,7 +20,10 @@ import {
 } from "lucide-react";
 
 export function IntroClient() {
-  const course = INTRO_COURSE_DATA;
+  const { language } = useLanguage();
+  const t = useTranslation(language);
+  const course = getIntroCourseData(language);
+
   const [solvedAnswers, setSolvedAnswers] = useState<Record<string, string>>({});
   const [activeTaskIdx, setActiveTaskIdx] = useState<number>(0);
 
@@ -56,7 +61,7 @@ export function IntroClient() {
             <div className="max-w-4xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono font-medium mb-3">
                 <BookOpen className="w-3.5 h-3.5" />
-                <span>OFFICIAL CURRICULUM</span>
+                <span>{t.course.officialCurriculum}</span>
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
                 {course.title}
@@ -69,7 +74,7 @@ export function IntroClient() {
             {/* Overall Progress Widget */}
             <div className="w-full md:w-64 p-4 rounded-xl bg-slate-950/50 border border-white/[0.06] shrink-0 shadow-sm">
               <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-2">
-                <span>COURSE PROGRESS</span>
+                <span>{t.course.courseProgress}</span>
                 <span className="text-emerald-400 font-bold">{progressPercent}%</span>
               </div>
               <div className="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden">
@@ -79,7 +84,7 @@ export function IntroClient() {
                 />
               </div>
               <p className="text-[11px] text-slate-400 mt-2 font-mono">
-                {solvedCount} of {totalQuestions} questions completed
+                {solvedCount} {t.course.of} {totalQuestions} {t.course.questionsCompleted}
               </p>
             </div>
           </div>
@@ -91,10 +96,10 @@ export function IntroClient() {
           <div className="lg:col-span-4 xl:col-span-3 space-y-2 sticky top-24">
             <div className="flex items-center justify-between px-1 mb-2">
               <h3 className="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
-                Course Outline
+                {t.course.outline}
               </h3>
               <span className="text-[11px] font-mono text-slate-500">
-                5 Tasks
+                {course.tasks.length} {language === "az" ? "Tapşırıq" : "Tasks"}
               </span>
             </div>
 
@@ -134,7 +139,7 @@ export function IntroClient() {
                       {task.title}
                     </h4>
                     <p className="text-[11px] text-slate-500 font-mono mt-0.5">
-                      {taskSolvedCount}/{task.quizzes.length} answered
+                      {taskSolvedCount}/{task.quizzes.length} {t.course.answered}
                     </p>
                   </div>
                 </button>
@@ -145,19 +150,21 @@ export function IntroClient() {
               <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/25 text-xs text-emerald-300 flex items-center gap-2.5 mt-4">
                 <Trophy className="w-5 h-5 text-emerald-400 shrink-0" />
                 <span className="font-semibold leading-relaxed">
-                  Congratulations! All questions completed.
+                  {t.course.congratulations}
                 </span>
               </div>
             )}
           </div>
 
-          {/* Right Column (Lesson Reading & Quizzes) - Stretched Widescreen */}
+          {/* Right Column (Lesson Reading & Quizzes) */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
             <article className="nerms-glass-panel rounded-2xl p-6 sm:p-10 lg:p-12 space-y-6">
               {/* Task Title */}
               <div className="pb-4 border-b border-white/[0.06]">
                 <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold mb-1">
-                  <span>TASK {activeTask.id} OF {course.tasks.length}</span>
+                  <span>
+                    {t.course.task} {activeTask.id} {t.course.of} {course.tasks.length}
+                  </span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {activeTask.title}
@@ -167,7 +174,7 @@ export function IntroClient() {
                 </p>
               </div>
 
-              {/* Lesson Narrative Content - Comfortable reading leading and contrast */}
+              {/* Lesson Narrative Content */}
               <div className="space-y-4 text-xs sm:text-[14px] text-slate-200 leading-[1.75] font-normal">
                 {activeTask.content.map((paragraph, pIdx) => (
                   <p key={pIdx}>{paragraph}</p>
@@ -183,7 +190,7 @@ export function IntroClient() {
               <div className="p-5 rounded-xl bg-emerald-950/[0.15] border border-emerald-500/20 space-y-2">
                 <h4 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                  Key Takeaways
+                  {t.course.keyTakeaways}
                 </h4>
                 <ul className="text-xs sm:text-[13px] text-slate-300 space-y-1.5 list-disc list-inside">
                   {activeTask.keyTakeaways.map((item, kIdx) => (
@@ -199,10 +206,10 @@ export function IntroClient() {
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-emerald-400" />
-                    Knowledge Checks ({activeTask.quizzes.length})
+                    {t.course.knowledgeChecks} ({activeTask.quizzes.length})
                   </h3>
                   <span className="text-xs text-slate-400 font-mono">
-                    Type your answer below
+                    {t.course.typeAnswer}
                   </span>
                 </div>
 
@@ -232,7 +239,7 @@ export function IntroClient() {
                   onClick={() => setActiveTaskIdx((prev) => Math.max(0, prev - 1))}
                   className="px-4 py-2 rounded-xl text-xs font-medium bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-[0.98]"
                 >
-                  ← Previous Task
+                  {t.course.prevTask}
                 </button>
 
                 {activeTaskIdx < course.tasks.length - 1 ? (
@@ -241,7 +248,7 @@ export function IntroClient() {
                     onClick={() => setActiveTaskIdx((prev) => Math.min(course.tasks.length - 1, prev + 1))}
                     className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all flex items-center gap-1.5 active:scale-[0.98]"
                   >
-                    <span>Next Task</span>
+                    <span>{t.course.nextTask}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 ) : (
@@ -250,7 +257,7 @@ export function IntroClient() {
                     onClick={() => setActiveTaskIdx(0)}
                     className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 hover:bg-emerald-500/25 transition-all flex items-center gap-1.5 active:scale-[0.98]"
                   >
-                    <span>Review from Task 1</span>
+                    <span>{t.course.reviewFromStart}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 )}

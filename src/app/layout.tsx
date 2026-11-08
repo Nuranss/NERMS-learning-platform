@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +36,11 @@ export default function RootLayout({
         </div>
 
         {/* Main application container spanning the natural viewport */}
-        <div className="relative z-10 w-full min-h-screen flex flex-col">
-          {children}
-        </div>
+        <LanguageProvider>
+          <div className="relative z-10 w-full min-h-screen flex flex-col">
+            {children}
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );

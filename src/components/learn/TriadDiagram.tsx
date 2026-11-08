@@ -1,16 +1,23 @@
 "use client";
 
-import { Shield, Activity, Lock, AlertCircle } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function TriadDiagram() {
+  const { language } = useLanguage();
+  const isAz = language === "az";
+
   return (
     <div className="w-full my-6 p-5 sm:p-6 rounded-2xl bg-slate-900/30 border border-white/[0.06] shadow-sm">
       <div className="text-center mb-5">
         <h4 className="text-xs sm:text-sm font-semibold text-slate-100 tracking-tight">
-          The Core Paradigm Shift: IT vs. OT Priorities
+          {isAz
+            ? "Əsas Paradigma Dəyişikliyi: IT və OT Prioritetləri"
+            : "The Core Paradigm Shift: IT vs. OT Priorities"}
         </h4>
         <p className="text-xs text-slate-400 mt-0.5">
-          Why standard corporate IT security policies can disrupt an industrial facility
+          {isAz
+            ? "Niyə standart korporativ IT təhlükəsizlik qaydaları sənaye müəssisəsinin işini poza bilər"
+            : "Why standard corporate IT security policies can disrupt an industrial facility"}
         </p>
       </div>
 
@@ -18,7 +25,9 @@ export function TriadDiagram() {
         {/* Traditional IT: CIA Triad */}
         <div className="p-4 sm:p-5 rounded-xl bg-slate-950/40 border border-white/[0.06] space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-mono text-cyan-400 tracking-wide">TRADITIONAL IT</span>
+            <span className="text-xs font-bold font-mono text-cyan-400 tracking-wide">
+              {isAz ? "ƏNƏNƏVİ IT" : "TRADITIONAL IT"}
+            </span>
             <span className="text-[11px] font-mono text-slate-400">"CIA TRIAD"</span>
           </div>
 
@@ -28,8 +37,14 @@ export function TriadDiagram() {
                 1
               </span>
               <div>
-                <p className="text-xs font-semibold text-slate-100">Confidentiality (Priority #1)</p>
-                <p className="text-[11px] text-slate-400 leading-tight">Protect customer records, credentials, and business IP.</p>
+                <p className="text-xs font-semibold text-slate-100">
+                  {isAz ? "Məxfilik (1-ci Prioritet)" : "Confidentiality (Priority #1)"}
+                </p>
+                <p className="text-[11px] text-slate-400 leading-tight">
+                  {isAz
+                    ? "Müştəri məlumatlarını, parolları və biznes əqli mülkiyyətini qorumaq."
+                    : "Protect customer records, credentials, and business IP."}
+                </p>
               </div>
             </div>
 
@@ -38,8 +53,14 @@ export function TriadDiagram() {
                 2
               </span>
               <div>
-                <p className="text-xs font-semibold text-slate-200">Integrity</p>
-                <p className="text-[11px] text-slate-400 leading-tight">Ensure financial records and databases remain untampered.</p>
+                <p className="text-xs font-semibold text-slate-200">
+                  {isAz ? "Bütövlük (Integrity)" : "Integrity"}
+                </p>
+                <p className="text-[11px] text-slate-400 leading-tight">
+                  {isAz
+                    ? "Maliyyə qeydlərinin və bazaların dəyişdirilməz qalmasını təmin etmək."
+                    : "Ensure financial records and databases remain untampered."}
+                </p>
               </div>
             </div>
 
@@ -48,20 +69,30 @@ export function TriadDiagram() {
                 3
               </span>
               <div>
-                <p className="text-xs font-semibold text-slate-300">Availability</p>
-                <p className="text-[11px] text-slate-400 leading-tight">Acceptable to reboot or take servers offline for scheduled maintenance.</p>
+                <p className="text-xs font-semibold text-slate-300">
+                  {isAz ? "Əlçatanlıq (Availability)" : "Availability"}
+                </p>
+                <p className="text-[11px] text-slate-400 leading-tight">
+                  {isAz
+                    ? "Planlaşdırılmış baxım üçün serverləri yenidən yükləmək və ya söndürmək məqbuldur."
+                    : "Acceptable to reboot or take servers offline for scheduled maintenance."}
+                </p>
               </div>
             </div>
           </div>
           <p className="text-[11px] text-slate-500 italic pt-1 border-t border-white/[0.04]">
-            Failure outcome: Data exposure, regulatory fines, business disruption.
+            {isAz
+              ? "Uğursuzluq nəticəsi: Məlumat sızması, tənzimləyici cərimələr, işin dayanması."
+              : "Failure outcome: Data exposure, regulatory fines, business disruption."}
           </p>
         </div>
 
         {/* Industrial OT: AIC Triad */}
         <div className="p-4 sm:p-5 rounded-xl bg-slate-950/40 border border-emerald-500/20 space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-mono text-emerald-400 tracking-wide">OPERATIONAL TECH (OT)</span>
+            <span className="text-xs font-bold font-mono text-emerald-400 tracking-wide">
+              {isAz ? "ƏMƏLİYYAT TEXNOLOGİYASI (OT)" : "OPERATIONAL TECH (OT)"}
+            </span>
             <span className="text-[11px] font-mono text-emerald-400/80">"AIC / SAFETY FIRST"</span>
           </div>
 
@@ -71,8 +102,14 @@ export function TriadDiagram() {
                 1
               </span>
               <div>
-                <p className="text-xs font-semibold text-slate-100">Availability & Safety (Priority #1)</p>
-                <p className="text-[11px] text-slate-300 leading-tight">Uninterrupted 24/7/365 runtime. Unplanned reboots can cause damage.</p>
+                <p className="text-xs font-semibold text-slate-100">
+                  {isAz ? "Əlçatanlıq və Təhlükəsizlik (1-ci Prioritet)" : "Availability & Safety (Priority #1)"}
+                </p>
+                <p className="text-[11px] text-slate-300 leading-tight">
+                  {isAz
+                    ? "Fasiləsiz 24/7/365 iş rejimi. Qəfil söndürmələr fiziki zərər verə bilər."
+                    : "Uninterrupted 24/7/365 runtime. Unplanned reboots can cause damage."}
+                </p>
               </div>
             </div>
 
@@ -81,8 +118,14 @@ export function TriadDiagram() {
                 2
               </span>
               <div>
-                <p className="text-xs font-semibold text-slate-200">Integrity</p>
-                <p className="text-[11px] text-slate-400 leading-tight">Sensor readings and valve control commands must be 100% accurate.</p>
+                <p className="text-xs font-semibold text-slate-200">
+                  {isAz ? "Bütövlük (Integrity)" : "Integrity"}
+                </p>
+                <p className="text-[11px] text-slate-400 leading-tight">
+                  {isAz
+                    ? "Sensor göstəriciləri və klapan idarəetmə əmrləri 100% dəqiq olmalıdır."
+                    : "Sensor readings and valve control commands must be 100% accurate."}
+                </p>
               </div>
             </div>
 
@@ -91,13 +134,21 @@ export function TriadDiagram() {
                 3
               </span>
               <div>
-                <p className="text-xs font-semibold text-slate-300">Confidentiality</p>
-                <p className="text-[11px] text-slate-400 leading-tight">Secondary. Packets are often plain text to eliminate crypto latency.</p>
+                <p className="text-xs font-semibold text-slate-300">
+                  {isAz ? "Məxfilik (Confidentiality)" : "Confidentiality"}
+                </p>
+                <p className="text-[11px] text-slate-400 leading-tight">
+                  {isAz
+                    ? "İkincili. Gecikməni aradan qaldırmaq üçün paketlər çox vaxt açıq mətndə ötürülür."
+                    : "Secondary. Packets are often plain text to eliminate crypto latency."}
+                </p>
               </div>
             </div>
           </div>
           <p className="text-[11px] text-emerald-400/80 italic pt-1 border-t border-white/[0.04]">
-            Failure outcome: Equipment damage, pipeline rupture, regional blackout, injury.
+            {isAz
+              ? "Uğursuzluq nəticəsi: Avadanlıq zədələnməsi, boru partlaması, blackout, xəsarət."
+              : "Failure outcome: Equipment damage, pipeline rupture, regional blackout, injury."}
           </p>
         </div>
       </div>
