@@ -46,11 +46,11 @@ export function IntroClient() {
     <div className="flex flex-col min-h-screen w-full">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-7 pb-24">
-        {/* Course Banner */}
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pt-8 pb-24">
+        {/* Course Banner - Stretched to widescreen */}
         <div className="mb-8">
-          <div className="nerms-glass-card rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="max-w-3xl">
+          <div className="nerms-glass-card rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="max-w-4xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono font-medium mb-3">
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>OFFICIAL CURRICULUM</span>
@@ -64,7 +64,7 @@ export function IntroClient() {
             </div>
 
             {/* Overall Progress Widget */}
-            <div className="w-full md:w-60 p-4 rounded-xl bg-slate-950/50 border border-white/[0.06] shrink-0 shadow-sm">
+            <div className="w-full md:w-64 p-4 rounded-xl bg-slate-950/50 border border-white/[0.06] shrink-0 shadow-sm">
               <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-2">
                 <span>COURSE PROGRESS</span>
                 <span className="text-emerald-400 font-bold">{progressPercent}%</span>
@@ -104,7 +104,7 @@ export function IntroClient() {
                 <button
                   key={task.id}
                   onClick={() => setActiveTaskIdx(idx)}
-                  className={`w-full text-left p-3.5 rounded-xl border transition-all flex items-start gap-3 ${
+                  className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 ${
                     active
                       ? "bg-slate-800/80 border-emerald-500/40 shadow-sm translate-x-1"
                       : "bg-slate-900/30 border-white/[0.05] hover:bg-slate-900/60 hover:border-white/10"
@@ -148,9 +148,9 @@ export function IntroClient() {
             )}
           </div>
 
-          {/* Right Column (Lesson Reading & Quizzes) */}
+          {/* Right Column (Lesson Reading & Quizzes) - Stretched Widescreen */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
-            <article className="nerms-glass-panel rounded-2xl p-6 sm:p-10 space-y-6">
+            <article className="nerms-glass-panel rounded-2xl p-6 sm:p-10 lg:p-12 space-y-6">
               {/* Task Title */}
               <div className="pb-4 border-b border-white/[0.06]">
                 <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold mb-1">
@@ -177,7 +177,7 @@ export function IntroClient() {
               {activeTask.hasDiagram === "purdue" && <PurdueDiagram />}
 
               {/* Key Takeaways Box */}
-              <div className="p-4 sm:p-5 rounded-xl bg-emerald-950/[0.15] border border-emerald-500/20 space-y-2">
+              <div className="p-5 rounded-xl bg-emerald-950/[0.15] border border-emerald-500/20 space-y-2">
                 <h4 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   Key Takeaways
