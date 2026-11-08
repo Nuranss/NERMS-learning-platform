@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AEGIS-OT | Industrial Control Systems Cyber Range",
-  description: "Next-generation hands-on training platform for ICS/SCADA and Operational Technology cybersecurity.",
+  title: "nerms — Learn Industrial Control Systems & OT Security",
+  description: "A clean, modern platform to learn and master ICS, SCADA, and Operational Technology cybersecurity.",
 };
 
 export default function RootLayout({
@@ -24,16 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark antialiased`}>
-      <body className="min-h-screen bg-[#070a12] text-slate-200 relative selection:bg-cyan-500/30 selection:text-cyan-200">
-        {/* Ambient lighting meshes for glassmorphism refraction */}
-        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute -top-40 -left-40 w-96 h-96 bg-cyan-600/15 rounded-full blur-[128px]" />
-          <div className="absolute top-1/4 -right-40 w-[30rem] h-[30rem] bg-indigo-600/12 rounded-full blur-[140px]" />
-          <div className="absolute bottom-10 left-1/3 w-[36rem] h-80 bg-emerald-600/10 rounded-full blur-[130px]" />
-          <div className="absolute inset-0 cyber-grid opacity-60" />
+      <body className="min-h-screen bg-[#090c15] text-slate-200 antialiased selection:bg-emerald-500/25 selection:text-emerald-200">
+        {/* Subtle, soft ambient glow (low intensity, no sensory overload) */}
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+          <div className="absolute top-0 left-1/4 w-[40rem] h-[25rem] bg-emerald-600/10 rounded-full blur-[140px]" />
+          <div className="absolute top-1/2 right-1/4 w-[35rem] h-[25rem] bg-cyan-600/10 rounded-full blur-[140px]" />
         </div>
 
-        {/* Main interactive application content */}
+        {/* Content */}
         <div className="relative z-10 flex min-h-screen flex-col">
           {children}
         </div>
