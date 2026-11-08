@@ -28,6 +28,17 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = language;
+      if (language === "az") {
+        document.title = "NERMS — Sənaye İdarəetmə Sistemləri (ICS) və OT Kiber Təhlükəsizliyi";
+      } else {
+        document.title = "NERMS — Learn Industrial Control Systems & OT Security";
+      }
+    }
+  }, [language]);
+
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     if (typeof window !== "undefined") {

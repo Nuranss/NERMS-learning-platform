@@ -85,7 +85,7 @@ export function PresentationShowcase() {
                   {t.showcase.rpmLabel}
                 </span>
                 <span className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400 tracking-tight">
-                  {rpm} <span className="text-xs text-slate-400 font-normal">RPM</span>
+                  {rpm} <span className="text-xs text-slate-400 font-normal">{t.showcase.rpmUnit}</span>
                 </span>
                 <span className="text-xs font-mono text-emerald-400/80 block mt-1">
                   {t.showcase.nominalFreq}

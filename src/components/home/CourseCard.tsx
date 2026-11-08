@@ -72,7 +72,7 @@ export function CourseCard({ course }: CourseCardProps) {
           </span>
           <span className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-slate-400" />
-            ~{course.estimatedMinutes}m
+            ~{course.estimatedMinutes} {t.catalog.minutesUnit}
           </span>
         </div>
 
