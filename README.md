@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NERMS — Interactive ICS & OT Cybersecurity Learning Platform
 
-## Getting Started
+NERMS is a dedicated interactive cybersecurity education platform focused on **Industrial Control Systems (ICS)**, **SCADA architectures**, and **Operational Technology (OT)** defense. Developed for students and researchers at **Azerbaijan Technical University (AzTU)**.
 
-First, run the development server:
+---
+
+## 🎯 Key Capabilities
+
+- **Interactive Telemetry Showcase:** Real-time simulation of industrial processes, generator rotor dynamics, hydrostatic pressure, and fail-safe safety instrumented circuits (SIS).
+- **Purdue Model Visualization:** Interactive multi-level architecture explorer mapping Level 0 (Physical Machinery) through Level 5 (Enterprise Networks).
+- **TryHackMe-Style Knowledge Checks:** In-browser practical assessments with hints, instant verification, and confetti celebration upon task completion.
+- **Client-Side Security (Salted SHA-256):** Quizzes verify answers via the native Web Crypto API against pre-hashed salted SHA-256 digests—protecting answer keys from client bundle inspection (remediating CWE-602).
+- **Full Bilingual Localization (EN / AZ):** Instant, reactive switching between English and Azerbaijani across all curriculum modules, questions, diagrams, and telemetry.
+- **Industrial Design System:** Tailored dark-carbon visual hierarchy with refined glassmorphism, Space Grotesk engineering typography, and zero template AI slop.
+- **Security-Hardened HTTP Headers:** Enforces `Strict-Transport-Security`, `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`, and strict `Permissions-Policy`.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+- **UI Library:** [React 19](https://react.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Typography:** Space Grotesk (Headings), Geist Sans (UI), Geist Mono (SCADA Telemetry)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Cryptography:** Native `window.crypto.subtle` (SHA-256)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 20+ installed
+- npm or pnpm
+
+### Installation
+
+```bash
+git clone https://github.com/Nuranss/NERMS-learning-platform.git
+cd NERMS-learning-platform
+npm install
+```
+
+### Running Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📚 Curriculum Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Module 1: The Physics of OT vs The Data of IT** — Physical consequences, the AIC triad (Availability, Integrity, Confidentiality).
+2. **Module 2: Anatomy of an Industrial Facility** — Sensors, Actuators, PLCs, RTUs, HMIs, and Historians.
+3. **Module 3: The Purdue Model (Levels 0–5)** — Network segmentation, DMZs, and air gaps.
+4. **Module 4: Insecure by Design Protocols** — Modbus TCP, Siemens S7, lack of authentication, replay attacks.
+5. **Module 5: Defense-in-Depth for OT** — Unidirectional security gateways (data diodes), read-only monitoring, safety instrumented systems (SIS).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🏛️ Affiliation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developed in association with **Azerbaijan Technical University (AzTU)** — [aztu.edu.az](https://aztu.edu.az/az).
