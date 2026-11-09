@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PresentationShowcase } from "@/components/home/PresentationShowcase";
 import { CourseCard } from "@/components/home/CourseCard";
 import { COURSES_CATALOG } from "@/mock/coursesCatalog";
-import { ArrowRight, BookOpen, CheckCircle2, Layers } from "lucide-react";
+import { BookOpen, Layers, ShieldCheck, Terminal, Radio } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
 
@@ -18,66 +19,103 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen w-full">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pt-10 sm:pt-14 pb-24 flex flex-col items-center">
-        {/* Hero Header */}
-        <section className="text-center max-w-4xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono font-medium mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>{t.hero.badge}</span>
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 sm:pt-12 pb-24 flex flex-col">
+        {/* Asymmetric Industrial Hero Section */}
+        <section className="w-full mb-14 lg:mb-18">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: Authoritative Engineering Typography & CTA */}
+            <div className="lg:col-span-7 flex flex-col justify-center">
+              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-emerald-400 tracking-wider uppercase mb-3">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>{t.hero.badge}</span>
+              </div>
+
+              <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-bold text-white tracking-tight leading-[1.12] mb-4">
+                {t.hero.title1}{" "}
+                <span className="text-emerald-400">{t.hero.title2}</span>
+              </h1>
+
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6 max-w-2xl">
+                {t.hero.desc}
+              </p>
+
+              {/* Action Button & Course Link */}
+              <div className="flex flex-wrap items-center gap-4 mb-8">
+                <Link
+                  href="/rooms/intro-to-ics"
+                  className="px-7 py-3.5 rounded-xl font-semibold text-sm sm:text-base bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 border border-emerald-400/20"
+                >
+                  <BookOpen className="w-5 h-5" />
+                  <span>{t.hero.cta}</span>
+                </Link>
+              </div>
+
+              {/* Engineering Metric Indicators */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/[0.08] text-xs font-mono">
+                <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm">05</span>
+                  <span className="text-slate-400">{t.hero.chips.modules}</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm">L0–L5</span>
+                  <span className="text-slate-400">{t.hero.chips.diagrams}</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm">14 Qs</span>
+                  <span className="text-slate-400">{t.hero.chips.checks}</span>
+                </div>
+                <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
+                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm">0 AZN</span>
+                  <span className="text-slate-400">{t.hero.chips.free}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Authentic Industrial Control Center Photograph */}
+            <div className="lg:col-span-5 w-full">
+              <div className="relative rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl bg-slate-950/80 group">
+                {/* Visual Telemetry Header */}
+                <div className="flex items-center justify-between px-4 py-2.5 bg-slate-950/85 border-b border-white/[0.06] text-[11px] font-mono text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-slate-200 font-medium">FACILITY // SCADA-01</span>
+                  </div>
+                  <span className="text-emerald-400 font-semibold">FEED ONLINE</span>
+                </div>
+
+                {/* Industrial Photograph */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  <Image
+                    src="/industrial-control-room.jpg"
+                    alt="Industrial Control Room and SCADA Operations"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                    className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
+                </div>
+
+                {/* Visual Telemetry Footer */}
+                <div className="px-4 py-2.5 bg-slate-950/85 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-400">
+                  <div className="flex items-center gap-1.5">
+                    <Radio className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>OT SECTOR SURVEILLANCE</span>
+                  </div>
+                  <span className="text-slate-500">IEC 62443 / NIST SP 800-82</span>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] mb-4">
-            {t.hero.title1} <br />
-            <span className="text-emerald-400">{t.hero.title2}</span>
-          </h1>
-
-          <p className="text-xs sm:text-base text-slate-300 leading-relaxed max-w-3xl mx-auto">
-            {t.hero.desc}
-          </p>
         </section>
 
         {/* Center Presentation Showcase */}
-        <section className="w-full mb-10">
+        <section className="w-full mb-16">
           <PresentationShowcase />
         </section>
 
-        {/* Action Button & Course Access Directly Underneath */}
-        <section className="flex flex-col items-center text-center space-y-4 mb-20">
-          <Link
-            href="/rooms/intro-to-ics"
-            className="group px-8 py-4 rounded-xl font-semibold text-sm sm:text-base bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/40 active:scale-[0.98] transition-all flex items-center gap-2.5 border border-emerald-400/20"
-          >
-            <BookOpen className="w-5 h-5" />
-            <span>{t.hero.cta}</span>
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </Link>
-
-          {/* Clean Course Feature Chips */}
-          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2 text-xs text-slate-400 font-mono">
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              {t.hero.chips.modules}
-            </span>
-            <span className="text-slate-600">•</span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              {t.hero.chips.diagrams}
-            </span>
-            <span className="text-slate-600">•</span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              {t.hero.chips.checks}
-            </span>
-            <span className="text-slate-600">•</span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              {t.hero.chips.free}
-            </span>
-          </div>
-        </section>
-
         {/* All Courses Segment */}
-        <section className="w-full max-w-6xl xl:max-w-7xl border-t border-white/[0.08] pt-14">
+        <section className="w-full max-w-6xl xl:max-w-7xl mx-auto border-t border-white/[0.08] pt-14">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1">

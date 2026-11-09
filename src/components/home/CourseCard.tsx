@@ -80,8 +80,8 @@ export function CourseCard({ course }: CourseCardProps) {
           href={course.href}
           className="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-all"
         >
+          <BookOpen className="w-4 h-4" />
           <span>{t.catalog.startCourse}</span>
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
     </div>
