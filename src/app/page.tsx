@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { PresentationShowcase } from "@/components/home/PresentationShowcase";
 import { CourseCard } from "@/components/home/CourseCard";
 import { COURSES_CATALOG } from "@/mock/coursesCatalog";
-import { BookOpen, Layers, ShieldCheck, Terminal, Radio } from "lucide-react";
+import { BookOpen, Layers } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
 
@@ -71,39 +71,17 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: Authentic Industrial Control Center Photograph */}
+            {/* Right Column: Industrial Control Center Photograph */}
             <div className="lg:col-span-5 w-full">
-              <div className="relative rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl bg-slate-950/80 group">
-                {/* Visual Telemetry Header */}
-                <div className="flex items-center justify-between px-4 py-2.5 bg-slate-950/85 border-b border-white/[0.06] text-[11px] font-mono text-slate-400">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-slate-200 font-medium">FACILITY // SCADA-01</span>
-                  </div>
-                  <span className="text-emerald-400 font-semibold">FEED ONLINE</span>
-                </div>
-
-                {/* Industrial Photograph */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
-                  <Image
-                    src="/industrial-control-room.jpg"
-                    alt="Industrial Control Room and SCADA Operations"
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
-                </div>
-
-                {/* Visual Telemetry Footer */}
-                <div className="px-4 py-2.5 bg-slate-950/85 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-400">
-                  <div className="flex items-center gap-1.5">
-                    <Radio className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>OT SECTOR SURVEILLANCE</span>
-                  </div>
-                  <span className="text-slate-500">IEC 62443 / NIST SP 800-82</span>
-                </div>
+              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl bg-slate-950/40">
+                <Image
+                  src="/industrial-control-room.jpg"
+                  alt="Industrial Control Room and SCADA Operations"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>

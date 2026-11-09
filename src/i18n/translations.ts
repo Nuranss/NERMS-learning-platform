@@ -104,8 +104,8 @@ export const TRANSLATIONS = {
       placeholder: "Answer...",
     },
     footer: {
-      title: "NERMS // INDUSTRIAL CYBERSECURITY CURRICULUM",
-      standards: "ISA/IEC 62443 & NIST SP 800-82 Standards",
+      copyright: "© 2026 NERMS",
+      affiliation: "Azerbaijan Technical University (AzTU)",
     },
   },
   az: {
@@ -213,8 +213,8 @@ export const TRANSLATIONS = {
       placeholder: "Cavabınız...",
     },
     footer: {
-      title: "NERMS // SƏNAYE KİBER TƏHLÜKƏSİZLİK KURRİKULUMU",
-      standards: "ISA/IEC 62443 və NIST SP 800-82 Standartları",
+      copyright: "© 2026 NERMS",
+      affiliation: "Azərbaycan Texniki Universiteti (AzTU)",
     },
   },
 } as const;
