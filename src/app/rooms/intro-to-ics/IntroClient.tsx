@@ -54,12 +54,12 @@ export function IntroClient() {
     <div className="flex flex-col min-h-screen w-full">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 pt-8 pb-24">
-        {/* Course Banner - Stretched to widescreen */}
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 pb-24">
+        {/* Course Banner in Liquid Glass Card */}
         <div className="mb-8">
-          <div className="nerms-glass-card rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="nerms-glass-card rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-2xl">
             <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-xs font-mono font-medium mb-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full nerms-liquid-badge text-emerald-300 text-xs font-mono font-medium mb-3">
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>{t.course.officialCurriculum}</span>
               </div>
@@ -71,15 +71,17 @@ export function IntroClient() {
               </p>
             </div>
 
-            {/* Overall Progress Widget */}
-            <div className="w-full md:w-64 p-4 rounded-xl bg-slate-950/50 border border-white/[0.06] shrink-0 shadow-sm">
-              <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-2">
+            {/* Overall Progress Widget in Liquid Frosted Pod */}
+            <div className="w-full md:w-72 p-4 sm:p-5 rounded-2xl nerms-liquid-pod shrink-0 shadow-lg">
+              <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-2.5">
                 <span>{t.course.courseProgress}</span>
-                <span className="text-emerald-400 font-bold">{progressPercent}%</span>
+                <span className="text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]">
+                  {progressPercent}%
+                </span>
               </div>
-              <div className="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden">
+              <div className="w-full bg-black/40 rounded-full h-2.5 overflow-hidden p-0.5 border border-white/[0.08] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)]">
                 <div
-                  className="bg-emerald-500 h-full transition-all duration-300 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.3)]"
+                  className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all duration-300 rounded-full shadow-[0_0_12px_rgba(16,185,129,0.5),inset_0_1px_0_rgba(255,255,255,0.4)]"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -93,12 +95,12 @@ export function IntroClient() {
         {/* Course Body: Wide Two-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column (Outline Stepper) */}
-          <div className="lg:col-span-4 xl:col-span-3 space-y-2 sticky top-24">
+          <div className="lg:col-span-4 xl:col-span-3 space-y-2.5 sticky top-24">
             <div className="flex items-center justify-between px-1 mb-2">
               <h3 className="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
                 {t.course.outline}
               </h3>
-              <span className="text-[11px] font-mono text-slate-500">
+              <span className="text-[11px] font-mono text-slate-400 nerms-liquid-pod px-2.5 py-0.5 rounded-full">
                 {course.tasks.length} {language === "az" ? "Tapşırıq" : "Tasks"}
               </span>
             </div>
@@ -112,19 +114,19 @@ export function IntroClient() {
                 <button
                   key={task.id}
                   onClick={() => setActiveTaskIdx(idx)}
-                  className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 ${
+                  className={`w-full text-left p-4 rounded-2xl transition-all duration-200 flex items-start gap-3.5 backdrop-blur-xl ${
                     active
-                      ? "bg-slate-800/80 border-emerald-500/40 shadow-sm translate-x-1"
-                      : "bg-slate-900/30 border-white/[0.05] hover:bg-slate-900/60 hover:border-white/10"
+                      ? "bg-gradient-to-r from-emerald-500/20 to-white/[0.04] border border-emerald-400/40 border-t-emerald-300/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_rgba(0,0,0,0.4)] translate-x-1"
+                      : "nerms-liquid-pod hover:bg-white/[0.08] hover:border-white/[0.18]"
                   }`}
                 >
                   <div
-                    className={`w-6 h-6 rounded-md font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                    className={`w-6 h-6 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
                       completed
-                        ? "bg-emerald-500 text-slate-950 font-bold"
+                        ? "bg-emerald-500 text-slate-950 font-bold shadow-[0_0_10px_rgba(16,185,129,0.5)]"
                         : active
-                        ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30"
-                        : "bg-slate-800 text-slate-400"
+                        ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400/40"
+                        : "bg-white/[0.06] text-slate-400 border border-white/[0.08]"
                     }`}
                   >
                     {completed ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : task.id}
@@ -138,7 +140,7 @@ export function IntroClient() {
                     >
                       {task.title}
                     </h4>
-                    <p className="text-[11px] text-slate-500 font-mono mt-0.5">
+                    <p className="text-[11px] text-slate-400 font-mono mt-0.5">
                       {taskSolvedCount}/{task.quizzes.length} {t.course.answered}
                     </p>
                   </div>
@@ -147,8 +149,8 @@ export function IntroClient() {
             })}
 
             {isAllCourseCompleted && (
-              <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/25 text-xs text-emerald-300 flex items-center gap-2.5 mt-4">
-                <Trophy className="w-5 h-5 text-emerald-400 shrink-0" />
+              <div className="p-4 rounded-2xl nerms-liquid-badge text-xs text-emerald-200 flex items-center gap-2.5 mt-4">
+                <Trophy className="w-5 h-5 text-emerald-300 shrink-0" />
                 <span className="font-semibold leading-relaxed">
                   {t.course.congratulations}
                 </span>
@@ -158,9 +160,9 @@ export function IntroClient() {
 
           {/* Right Column (Lesson Reading & Quizzes) */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
-            <article className="nerms-glass-panel rounded-2xl p-6 sm:p-10 lg:p-12 space-y-6">
+            <article className="nerms-glass-panel rounded-3xl p-6 sm:p-10 lg:p-12 space-y-6 shadow-2xl">
               {/* Task Title */}
-              <div className="pb-4 border-b border-white/[0.06]">
+              <div className="pb-4 border-b border-white/[0.08]">
                 <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold mb-1">
                   <span>
                     {t.course.task} {activeTask.id} {t.course.of} {course.tasks.length}
@@ -186,8 +188,8 @@ export function IntroClient() {
               {activeTask.hasDiagram === "components" && <ComponentFlowDiagram />}
               {activeTask.hasDiagram === "purdue" && <PurdueDiagram />}
 
-              {/* Key Takeaways Box */}
-              <div className="p-5 rounded-xl bg-emerald-950/[0.15] border border-emerald-500/20 space-y-2">
+              {/* Key Takeaways Box in Liquid Frosted Pod */}
+              <div className="p-6 rounded-2xl nerms-liquid-pod border-emerald-500/30 space-y-2">
                 <h4 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   {t.course.keyTakeaways}
@@ -201,8 +203,8 @@ export function IntroClient() {
                 </ul>
               </div>
 
-              {/* TryHackMe-Fashion Quizzes */}
-              <div className="pt-6 border-t border-white/[0.06] space-y-4">
+              {/* Quizzes Section */}
+              <div className="pt-6 border-t border-white/[0.08] space-y-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-emerald-400" />
@@ -232,12 +234,12 @@ export function IntroClient() {
               </div>
 
               {/* Stepper Navigation Buttons */}
-              <div className="pt-6 border-t border-white/[0.06] flex items-center justify-between">
+              <div className="pt-6 border-t border-white/[0.08] flex items-center justify-between">
                 <button
                   type="button"
                   disabled={activeTaskIdx === 0}
                   onClick={() => setActiveTaskIdx((prev) => Math.max(0, prev - 1))}
-                  className="px-4 py-2 rounded-xl text-xs font-medium bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-[0.98]"
+                  className="nerms-liquid-btn-secondary px-5 py-2.5 rounded-full text-xs font-medium disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-[0.98]"
                 >
                   {t.course.prevTask}
                 </button>
@@ -246,7 +248,7 @@ export function IntroClient() {
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx((prev) => Math.min(course.tasks.length - 1, prev + 1))}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all flex items-center gap-1.5 active:scale-[0.98]"
+                    className="nerms-liquid-btn-primary px-6 py-2.5 rounded-full text-xs font-semibold flex items-center gap-2 active:scale-[0.98] transition-all"
                   >
                     <span>{t.course.nextTask}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -255,7 +257,7 @@ export function IntroClient() {
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx(0)}
-                    className="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 hover:bg-emerald-500/25 transition-all flex items-center gap-1.5 active:scale-[0.98]"
+                    className="nerms-liquid-btn-secondary px-6 py-2.5 rounded-full text-xs font-semibold text-emerald-300 border-emerald-400/30 hover:border-emerald-400/50 flex items-center gap-2 active:scale-[0.98] transition-all"
                   >
                     <span>{t.course.reviewFromStart}</span>
                     <ChevronRight className="w-3.5 h-3.5" />

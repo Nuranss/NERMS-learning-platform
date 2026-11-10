@@ -7,14 +7,14 @@ export function TriadDiagram() {
   const isAz = language === "az";
 
   return (
-    <div className="w-full my-6 p-5 sm:p-6 rounded-2xl bg-slate-900/30 border border-white/[0.06] shadow-sm">
+    <div className="w-full my-6 p-6 sm:p-8 rounded-3xl nerms-liquid-pod space-y-5 shadow-lg">
       <div className="text-center mb-5">
         <h4 className="text-xs sm:text-sm font-semibold text-slate-100 tracking-tight">
           {isAz
             ? "Əsas Paradigma Dəyişikliyi: IT və OT Prioritetləri"
             : "The Core Paradigm Shift: IT vs. OT Priorities"}
         </h4>
-        <p className="text-xs text-slate-400 mt-0.5">
+        <p className="text-xs text-slate-400 mt-1">
           {isAz
             ? "Niyə standart korporativ IT təhlükəsizlik qaydaları sənaye müəssisəsinin işini poza bilər"
             : "Why standard corporate IT security policies can disrupt an industrial facility"}
@@ -23,17 +23,17 @@ export function TriadDiagram() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Traditional IT: CIA Triad */}
-        <div className="p-4 sm:p-5 rounded-xl bg-slate-950/40 border border-white/[0.06] space-y-3">
+        <div className="p-5 sm:p-6 rounded-2xl nerms-liquid-pod space-y-3.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-mono text-cyan-400 tracking-wide">
+            <span className="text-xs font-bold font-mono text-cyan-400 tracking-wide drop-shadow-[0_0_8px_rgba(34,211,238,0.3)]">
               {isAz ? "ƏNƏNƏVİ IT" : "TRADITIONAL IT"}
             </span>
             <span className="text-[11px] font-mono text-slate-400">"CIA TRIAD"</span>
           </div>
 
-          <div className="space-y-2">
-            <div className="p-2.5 rounded-lg bg-cyan-950/20 border border-cyan-500/20 flex items-center gap-3">
-              <span className="w-6 h-6 rounded-md bg-cyan-500/15 text-cyan-300 font-mono font-bold text-xs flex items-center justify-center shrink-0">
+          <div className="space-y-2.5">
+            <div className="p-3 rounded-xl bg-cyan-950/25 border border-cyan-400/25 border-t-cyan-300/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] flex items-center gap-3">
+              <span className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-300 font-mono font-bold text-xs flex items-center justify-center shrink-0">
                 1
               </span>
               <div>
@@ -48,8 +48,8 @@ export function TriadDiagram() {
               </div>
             </div>
 
-            <div className="p-2.5 rounded-lg bg-slate-900/40 border border-white/[0.04] flex items-center gap-3">
-              <span className="w-6 h-6 rounded-md bg-slate-800/80 text-slate-300 font-mono font-bold text-xs flex items-center justify-center shrink-0">
+            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-center gap-3">
+              <span className="w-6 h-6 rounded-lg bg-white/[0.08] text-slate-300 font-mono font-bold text-xs flex items-center justify-center shrink-0">
                 2
               </span>
               <div>
@@ -64,8 +64,8 @@ export function TriadDiagram() {
               </div>
             </div>
 
-            <div className="p-2.5 rounded-lg bg-slate-900/30 border border-white/[0.04] flex items-center gap-3">
-              <span className="w-6 h-6 rounded-md bg-slate-800/60 text-slate-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">
+            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-3">
+              <span className="w-6 h-6 rounded-lg bg-white/[0.06] text-slate-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">
                 3
               </span>
               <div>
@@ -80,7 +80,7 @@ export function TriadDiagram() {
               </div>
             </div>
           </div>
-          <p className="text-[11px] text-slate-500 italic pt-1 border-t border-white/[0.04]">
+          <p className="text-[11px] text-slate-400/80 italic pt-1 border-t border-white/[0.06]">
             {isAz
               ? "Uğursuzluq nəticəsi: Məlumat sızması, tənzimləyici cərimələr, işin dayanması."
               : "Failure outcome: Data exposure, regulatory fines, business disruption."}
@@ -88,17 +88,17 @@ export function TriadDiagram() {
         </div>
 
         {/* Industrial OT: AIC Triad */}
-        <div className="p-4 sm:p-5 rounded-xl bg-slate-950/40 border border-emerald-500/20 space-y-3">
+        <div className="p-5 sm:p-6 rounded-2xl nerms-liquid-pod border-emerald-500/30 space-y-3.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-mono text-emerald-400 tracking-wide">
+            <span className="text-xs font-bold font-mono text-emerald-400 tracking-wide drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
               {isAz ? "ƏMƏLİYYAT TEXNOLOGİYASI (OT)" : "OPERATIONAL TECH (OT)"}
             </span>
-            <span className="text-[11px] font-mono text-emerald-400/80">"AIC / SAFETY FIRST"</span>
+            <span className="text-[11px] font-mono text-emerald-400/90">"AIC / SAFETY FIRST"</span>
           </div>
 
-          <div className="space-y-2">
-            <div className="p-2.5 rounded-lg bg-emerald-950/20 border border-emerald-500/25 flex items-center gap-3">
-              <span className="w-6 h-6 rounded-md bg-emerald-500/15 text-emerald-300 font-mono font-bold text-xs flex items-center justify-center shrink-0">
+          <div className="space-y-2.5">
+            <div className="p-3 rounded-xl bg-emerald-950/25 border border-emerald-400/30 border-t-emerald-300/45 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] flex items-center gap-3">
+              <span className="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-300 font-mono font-bold text-xs flex items-center justify-center shrink-0">
                 1
               </span>
               <div>
@@ -113,8 +113,8 @@ export function TriadDiagram() {
               </div>
             </div>
 
-            <div className="p-2.5 rounded-lg bg-slate-900/40 border border-white/[0.04] flex items-center gap-3">
-              <span className="w-6 h-6 rounded-md bg-slate-800/80 text-slate-300 font-mono font-bold text-xs flex items-center justify-center shrink-0">
+            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-center gap-3">
+              <span className="w-6 h-6 rounded-lg bg-white/[0.08] text-slate-300 font-mono font-bold text-xs flex items-center justify-center shrink-0">
                 2
               </span>
               <div>
@@ -129,8 +129,8 @@ export function TriadDiagram() {
               </div>
             </div>
 
-            <div className="p-2.5 rounded-lg bg-slate-900/30 border border-white/[0.04] flex items-center gap-3">
-              <span className="w-6 h-6 rounded-md bg-slate-800/60 text-slate-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">
+            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-3">
+              <span className="w-6 h-6 rounded-lg bg-white/[0.06] text-slate-400 font-mono font-bold text-xs flex items-center justify-center shrink-0">
                 3
               </span>
               <div>
@@ -145,7 +145,7 @@ export function TriadDiagram() {
               </div>
             </div>
           </div>
-          <p className="text-[11px] text-emerald-400/80 italic pt-1 border-t border-white/[0.04]">
+          <p className="text-[11px] text-emerald-400/90 italic pt-1 border-t border-white/[0.06]">
             {isAz
               ? "Uğursuzluq nəticəsi: Avadanlıq zədələnməsi, boru partlaması, blackout, xəsarət."
               : "Failure outcome: Equipment damage, pipeline rupture, regional blackout, injury."}

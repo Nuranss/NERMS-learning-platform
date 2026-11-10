@@ -10,6 +10,7 @@ import { COURSES_CATALOG } from "@/mock/coursesCatalog";
 import { BookOpen, Layers } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
+import { GlassScene, GlassSurface, GlassContent } from "@glass-sdk/liquid-glass";
 
 export default function HomePage() {
   const { language } = useLanguage();
@@ -19,80 +20,99 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen w-full">
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 sm:pt-12 pb-24 flex flex-col">
-        {/* Asymmetric Industrial Hero Section */}
-        <section className="w-full mb-14 lg:mb-18">
+      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 sm:pt-14 pb-24 flex flex-col">
+        {/* Hero Section */}
+        <section className="w-full mb-14 lg:mb-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column: Authoritative Engineering Typography & CTA */}
+            {/* Left Column: Typography & CTA */}
             <div className="lg:col-span-7 flex flex-col justify-center">
-              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-emerald-400 tracking-wider uppercase mb-3">
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <div className="inline-flex items-center gap-2 self-start px-3.5 py-1 rounded-full nerms-liquid-badge text-xs font-mono font-semibold text-emerald-300 tracking-wider uppercase mb-4">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
                 <span>{t.hero.badge}</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-bold text-white tracking-tight leading-[1.12] mb-4">
+              <h1 className="text-3xl sm:text-5xl lg:text-[3.35rem] font-bold text-white tracking-tight leading-[1.12] mb-4">
                 {t.hero.title1}{" "}
-                <span className="text-emerald-400">{t.hero.title2}</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-400 drop-shadow-[0_0_24px_rgba(16,185,129,0.3)]">
+                  {t.hero.title2}
+                </span>
               </h1>
 
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6 max-w-2xl">
+              <p className="text-sm sm:text-base text-slate-300/90 leading-relaxed mb-6 max-w-2xl font-normal">
                 {t.hero.desc}
               </p>
 
-              {/* Action Button & Course Link */}
+              {/* CTA — plain glassmorphism emerald button */}
               <div className="flex flex-wrap items-center gap-4 mb-8">
                 <Link
                   href="/rooms/intro-to-ics"
-                  className="px-7 py-3.5 rounded-xl font-semibold text-sm sm:text-base bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 border border-emerald-400/20"
+                  className="nerms-liquid-btn-primary inline-flex items-center gap-2.5 px-8 py-3.5 text-sm sm:text-base font-semibold rounded-full"
                 >
-                  <BookOpen className="w-5 h-5" />
-                  <span>{t.hero.cta}</span>
+                  <BookOpen className="w-5 h-5 text-emerald-200 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]" />
+                  <span className="text-white">{t.hero.cta}</span>
                 </Link>
               </div>
 
-              {/* Engineering Metric Indicators */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/[0.08] text-xs font-mono">
-                <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm">05</span>
-                  <span className="text-slate-400">{t.hero.chips.modules}</span>
+              {/* Metric chips */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5 border-t border-white/[0.08] text-xs font-mono">
+                <div className="nerms-liquid-pod p-3 sm:p-3.5 rounded-2xl">
+                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]">05</span>
+                  <span className="text-slate-300/80">{t.hero.chips.modules}</span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm">L0–L5</span>
-                  <span className="text-slate-400">{t.hero.chips.diagrams}</span>
+                <div className="nerms-liquid-pod p-3 sm:p-3.5 rounded-2xl">
+                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]">L0–L5</span>
+                  <span className="text-slate-300/80">{t.hero.chips.diagrams}</span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm">14 Qs</span>
-                  <span className="text-slate-400">{t.hero.chips.checks}</span>
+                <div className="nerms-liquid-pod p-3 sm:p-3.5 rounded-2xl">
+                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]">14 Qs</span>
+                  <span className="text-slate-300/80">{t.hero.chips.checks}</span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.04]">
-                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm">0 AZN</span>
-                  <span className="text-slate-400">{t.hero.chips.free}</span>
+                <div className="nerms-liquid-pod p-3 sm:p-3.5 rounded-2xl">
+                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm drop-shadow-[0_0_10px_rgba(16,185,129,0.3)]">0 AZN</span>
+                  <span className="text-slate-300/80">{t.hero.chips.free}</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Industrial Control Center Photograph */}
+            {/* Right Column: Photo with REAL liquid-glass frame (this is the showcase) */}
             <div className="lg:col-span-5 w-full">
-              <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl bg-slate-950/40">
-                <Image
-                  src="/industrial-control-room.jpg"
-                  alt="Industrial Control Room and SCADA Operations"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover"
+              <GlassScene
+                material="regular"
+                appearance="dark"
+                className="w-full relative"
+                style={{ aspectRatio: "16/10" }}
+              >
+                <GlassContent className="rounded-3xl overflow-hidden">
+                  <Image
+                    src="/industrial-control-room.jpg"
+                    alt="Industrial Control Room and SCADA Operations"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                    className="object-cover"
+                  />
+                </GlassContent>
+                <GlassSurface
+                  radius={28}
+                  material="regular"
+                  appearance="dark"
+                  refraction={32}
+                  interactive
+                  fluid
+                  className="absolute inset-0 rounded-3xl shadow-2xl"
+                  style={{ padding: 0 }}
                 />
-              </div>
+              </GlassScene>
             </div>
           </div>
         </section>
 
-        {/* Center Presentation Showcase */}
-        <section className="w-full mb-16">
+        {/* Presentation Showcase */}
+        <section className="w-full mb-16 lg:mb-20">
           <PresentationShowcase />
         </section>
 
-        {/* All Courses Segment */}
+        {/* All Courses */}
         <section className="w-full max-w-6xl xl:max-w-7xl mx-auto border-t border-white/[0.08] pt-14">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
             <div>
@@ -103,25 +123,22 @@ export default function HomePage() {
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 {t.catalog.allCourses}
               </h2>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1">
+              <p className="text-xs sm:text-sm text-slate-300/80 mt-1">
                 {t.catalog.subtitle}
               </p>
             </div>
-
-            <span className="text-xs font-mono text-slate-400 bg-white/[0.04] border border-white/[0.06] px-3 py-1.5 rounded-lg">
+            <span className="text-xs font-mono text-slate-300 nerms-liquid-pod px-3.5 py-1.5 rounded-full self-start sm:self-auto">
               {t.catalog.showing}
             </span>
           </div>
 
-          {/* Course Cards Grid */}
           <div className="space-y-4">
             {COURSES_CATALOG.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
           </div>
 
-          {/* Expansion Note */}
-          <div className="mt-6 p-4 rounded-xl bg-slate-900/30 border border-white/[0.05] text-center text-xs text-slate-400 font-mono">
+          <div className="mt-6 p-4 rounded-2xl nerms-liquid-pod text-center text-xs text-slate-400 font-mono">
             <span>{t.catalog.expansion}</span>
           </div>
         </section>
