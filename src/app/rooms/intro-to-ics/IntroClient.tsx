@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { getIntroCourseData, IntroTask } from "@/mock/introCourseData";
 import { TriadDiagram } from "@/components/learn/TriadDiagram";
 import { PurdueDiagram } from "@/components/learn/PurdueDiagram";
 import { ComponentFlowDiagram } from "@/components/learn/ComponentFlowDiagram";
-import { WaterPlantMimic } from "@/components/scada/WaterPlantMimic";
-import { INITIAL_PLANT_STATE, SCADAPlantState } from "@/mock/plantInitialState";
 import { QuizQuestion } from "@/components/learn/QuizQuestion";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
@@ -45,30 +43,6 @@ export function IntroClient() {
   };
 
   const activeTask = course.tasks[activeTaskIdx];
-
-  const [plantState, setPlantState] = useState<SCADAPlantState>(INITIAL_PLANT_STATE);
-
-  useEffect(() => {
-    if (activeTask.id !== 4) return;
-    const interval = setInterval(() => {
-      setPlantState((prev) => {
-        let delta = 0;
-        if (prev.pumpInletState) delta += 16;
-        if (prev.valveOutletState) delta -= 16;
-        const jitter = (Math.random() - 0.5) * 4;
-        const nextLevel = Math.max(80, Math.min(950, prev.waterLevelCm + delta + jitter));
-        const basePsi = 32.0 + (nextLevel / 1000) * 22.0;
-
-        return {
-          ...prev,
-          waterLevelCm: Math.round(nextLevel),
-          pressurePsi: +(basePsi + (Math.random() * 0.4)).toFixed(1),
-          isOverflowing: nextLevel >= 900,
-        };
-      });
-    }, 1200);
-    return () => clearInterval(interval);
-  }, [activeTask.id]);
 
   const isTaskCompleted = (task: IntroTask) => {
     return task.quizzes.every((q) => solvedQuizIds.includes(q.id));
@@ -213,19 +187,6 @@ export function IntroClient() {
               {activeTask.hasDiagram === "triad" && <TriadDiagram />}
               {activeTask.hasDiagram === "components" && <ComponentFlowDiagram />}
               {activeTask.hasDiagram === "purdue" && <PurdueDiagram />}
-              {activeTask.id === 4 && (
-                <div className="my-6">
-                  <WaterPlantMimic
-                    state={plantState}
-                    onTogglePump={() =>
-                      setPlantState((prev) => ({ ...prev, pumpInletState: !prev.pumpInletState }))
-                    }
-                    onToggleValve={() =>
-                      setPlantState((prev) => ({ ...prev, valveOutletState: !prev.valveOutletState }))
-                    }
-                  />
-                </div>
-              )}
 
               {/* Key Takeaways Box */}
               <div className="p-6 rounded-2xl nerms-liquid-pod border-emerald-500/25 space-y-2">

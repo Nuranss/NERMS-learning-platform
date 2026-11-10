@@ -77,22 +77,6 @@
     will-change: transform;
   }
 
-  /* SVG Industrial Pipe Flow & Pump Impeller Rotation */
-  @keyframes pipe-dash {
-    to {
-      stroke-dashoffset: -20;
-    }
-  }
-
-  .animate-pipe-flow {
-    stroke-dasharray: 6 4;
-    animation: pipe-dash 1s linear infinite;
-  }
-
-  .animate-spin-slow {
-    animation: spin 4s linear infinite;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .animate-liquid-1,
     .animate-liquid-2,

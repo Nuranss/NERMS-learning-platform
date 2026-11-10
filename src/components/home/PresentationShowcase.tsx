@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { Activity, RotateCw, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
-import { WaterPlantMimic } from "@/components/scada/WaterPlantMimic";
-import { INITIAL_PLANT_STATE } from "@/mock/plantInitialState";
 import {
   GlassScene,
   GlassSwitch,
@@ -26,31 +24,15 @@ export function PresentationShowcase() {
   const [pumpRunning, setPumpRunning] = useState(true);
   const [pressureMonitor, setPressureMonitor] = useState(true);
   const [sisArmed, setSisArmed] = useState(true);
-  const [valveOpen, setValveOpen] = useState(true);
-  const [waterLevel, setWaterLevel] = useState(480);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (pumpRunning) setRpm(3595 + Math.floor(Math.random() * 12));
       else setRpm(0);
-
-      // Cyber-physical plant simulation dynamics
-      setWaterLevel((prev) => {
-        let delta = 0;
-        if (pumpRunning) delta += 18;
-        if (valveOpen) delta -= 18;
-        const jitter = (Math.random() - 0.5) * 4;
-        const next = Math.max(60, Math.min(960, prev + delta + jitter));
-        return Math.round(next);
-      });
-
-      if (pressureMonitor) {
-        const basePsi = 34.0 + (waterLevel / 1000) * 20.0;
-        setPsi(+(basePsi + (Math.random() * 0.4)).toFixed(1));
-      }
+      if (pressureMonitor) setPsi(48.0 + +(Math.random() * 0.5).toFixed(1));
     }, 1200);
     return () => clearInterval(interval);
-  }, [pumpRunning, valveOpen, pressureMonitor, waterLevel]);
+  }, [pumpRunning, pressureMonitor]);
 
   return (
     <div className="nerms-glass-panel w-full max-w-6xl xl:max-w-7xl mx-auto rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl">
@@ -218,22 +200,6 @@ export function PresentationShowcase() {
                 </div>
               </div>
             </GlassScene>
-          </div>
-
-          {/* Interactive SCADA Tank-04 Mimic with Live Liquid Glass Controls */}
-          <div className="pt-2">
-            <WaterPlantMimic
-              state={{
-                ...INITIAL_PLANT_STATE,
-                pumpInletState: pumpRunning,
-                valveOutletState: valveOpen,
-                waterLevelCm: waterLevel,
-                pressurePsi: psi,
-                isOverflowing: waterLevel >= 900,
-              }}
-              onTogglePump={() => setPumpRunning(!pumpRunning)}
-              onToggleValve={() => setValveOpen(!valveOpen)}
-            />
           </div>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pt-2 max-w-prose">
