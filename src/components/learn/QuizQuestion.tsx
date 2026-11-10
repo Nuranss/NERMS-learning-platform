@@ -62,8 +62,8 @@ export function QuizQuestion({
         onSolve(id, cleanAnswer);
         try {
           confetti({
-            particleCount: 45,
-            spread: 45,
+            particleCount: 35,
+            spread: 40,
             origin: { y: 0.8 },
             colors: ["#10b981", "#34d399", "#38bdf8"],
           });
@@ -82,10 +82,10 @@ export function QuizQuestion({
 
   return (
     <div
-      className={`p-4 sm:p-5 rounded-2xl transition-all duration-200 ${
+      className={`p-4 sm:p-5 rounded-2xl transition-all duration-140 ${
         isSolved
-          ? "bg-gradient-to-r from-emerald-950/35 via-emerald-900/15 to-white/[0.02] border border-emerald-400/35 border-t-emerald-300/50 backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.25)]"
-          : "nerms-liquid-pod hover:border-white/[0.18]"
+          ? "bg-emerald-950/20 border border-emerald-400/25"
+          : "nerms-liquid-pod hover:border-white/[0.14]"
       }`}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
@@ -93,10 +93,10 @@ export function QuizQuestion({
           {question}
         </p>
         <span
-          className={`text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-full shrink-0 border ${
+          className={`text-[10px] font-mono font-medium px-2.5 py-0.5 rounded-full shrink-0 border tabular-nums ${
             isSolved
-              ? "bg-emerald-500/20 text-emerald-300 border-emerald-400/30 shadow-[0_0_8px_rgba(16,185,129,0.3)]"
-              : "bg-white/[0.05] text-slate-400 border-white/[0.1]"
+              ? "bg-emerald-500/15 text-emerald-300 border-emerald-400/30"
+              : "bg-white/[0.04] text-slate-400 border-white/[0.08]"
           }`}
         >
           {isSolved ? t.quiz.solved : `+${points} ${t.quiz.points}`}
@@ -105,7 +105,7 @@ export function QuizQuestion({
 
       {isSolved ? (
         <div className="flex items-center gap-2 pt-2.5 border-t border-emerald-500/20 text-xs font-mono text-emerald-300">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 drop-shadow-[0_0_6px_rgba(16,185,129,0.5)]" />
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span className="font-semibold">{solvedText || savedAnswer || t.quiz.verified}</span>
           <span className="text-slate-400 text-[11px] font-sans font-normal ml-auto">{t.quiz.verified}</span>
         </div>
@@ -118,7 +118,7 @@ export function QuizQuestion({
               disabled={isChecking}
               onChange={(e) => setInputVal(e.target.value)}
               placeholder={placeholderText}
-              className="flex-1 px-3.5 py-2 rounded-xl nerms-input text-xs font-mono placeholder:text-slate-500 focus:outline-none disabled:opacity-50"
+              className="flex-1 px-3.5 py-2 rounded-xl nerms-input text-xs font-mono placeholder:text-slate-500 disabled:opacity-50"
             />
             <button
               type="submit"
@@ -154,7 +154,7 @@ export function QuizQuestion({
                 <span>{showHint ? t.quiz.hideHint : t.quiz.needHint}</span>
               </button>
               {showHint && (
-                <p className="mt-1.5 p-3 rounded-xl nerms-liquid-pod border-emerald-500/25 text-[11px] font-mono text-slate-300 leading-relaxed">
+                <p className="mt-1.5 p-3 rounded-xl nerms-liquid-pod border-emerald-500/20 text-[11px] font-mono text-slate-300 leading-relaxed">
                   {hint}
                 </p>
               )}

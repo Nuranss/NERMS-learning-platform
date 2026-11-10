@@ -27,8 +27,8 @@ export function ComponentFlowDiagram() {
             <Gauge className="w-5 h-5" />
           </div>
           <div>
-            <span className="font-mono text-[10px] text-emerald-400 font-bold block">
-              {isAz ? "SƏVİYYƏ 0" : "LEVEL 0"}
+            <span className="font-mono text-[10px] text-emerald-400 font-semibold block">
+              {isAz ? "Səviyyə 0" : "Level 0"}
             </span>
             <strong className="text-slate-100 block mt-0.5">
               {isAz ? "Sensorlar və İcraedicilər" : "Sensors & Actuators"}
@@ -47,8 +47,8 @@ export function ComponentFlowDiagram() {
             <Cpu className="w-5 h-5" />
           </div>
           <div>
-            <span className="font-mono text-[10px] text-amber-400 font-bold block">
-              {isAz ? "SƏVİYYƏ 1" : "LEVEL 1"}
+            <span className="font-mono text-[10px] text-amber-400 font-semibold block">
+              {isAz ? "Səviyyə 1" : "Level 1"}
             </span>
             <strong className="text-slate-100 block mt-0.5">
               {isAz ? "PLC (Beyin)" : "PLC (The Brain)"}
@@ -67,8 +67,8 @@ export function ComponentFlowDiagram() {
             <Monitor className="w-5 h-5" />
           </div>
           <div>
-            <span className="font-mono text-[10px] text-cyan-400 font-bold block">
-              {isAz ? "SƏVİYYƏ 2" : "LEVEL 2"}
+            <span className="font-mono text-[10px] text-cyan-400 font-semibold block">
+              {isAz ? "Səviyyə 2" : "Level 2"}
             </span>
             <strong className="text-slate-100 block mt-0.5">HMI / SCADA</strong>
             <p className="text-[11px] text-slate-400 mt-1.5 leading-relaxed">
@@ -85,8 +85,8 @@ export function ComponentFlowDiagram() {
             <Database className="w-5 h-5" />
           </div>
           <div>
-            <span className="font-mono text-[10px] text-purple-400 font-bold block">
-              {isAz ? "SƏVİYYƏ 3" : "LEVEL 3"}
+            <span className="font-mono text-[10px] text-purple-400 font-semibold block">
+              {isAz ? "Səviyyə 3" : "Level 3"}
             </span>
             <strong className="text-slate-100 block mt-0.5">
               {isAz ? "Zavod Tarixçisi" : "Process Historian"}

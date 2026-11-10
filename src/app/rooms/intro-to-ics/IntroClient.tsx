@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { getIntroCourseData, IntroTask } from "@/mock/introCourseData";
 import { TriadDiagram } from "@/components/learn/TriadDiagram";
 import { PurdueDiagram } from "@/components/learn/PurdueDiagram";
 import { ComponentFlowDiagram } from "@/components/learn/ComponentFlowDiagram";
+import { WaterPlantMimic } from "@/components/scada/WaterPlantMimic";
+import { INITIAL_PLANT_STATE, SCADAPlantState } from "@/mock/plantInitialState";
 import { QuizQuestion } from "@/components/learn/QuizQuestion";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
@@ -44,6 +46,30 @@ export function IntroClient() {
 
   const activeTask = course.tasks[activeTaskIdx];
 
+  const [plantState, setPlantState] = useState<SCADAPlantState>(INITIAL_PLANT_STATE);
+
+  useEffect(() => {
+    if (activeTask.id !== 4) return;
+    const interval = setInterval(() => {
+      setPlantState((prev) => {
+        let delta = 0;
+        if (prev.pumpInletState) delta += 16;
+        if (prev.valveOutletState) delta -= 16;
+        const jitter = (Math.random() - 0.5) * 4;
+        const nextLevel = Math.max(80, Math.min(950, prev.waterLevelCm + delta + jitter));
+        const basePsi = 32.0 + (nextLevel / 1000) * 22.0;
+
+        return {
+          ...prev,
+          waterLevelCm: Math.round(nextLevel),
+          pressurePsi: +(basePsi + (Math.random() * 0.4)).toFixed(1),
+          isOverflowing: nextLevel >= 900,
+        };
+      });
+    }, 1200);
+    return () => clearInterval(interval);
+  }, [activeTask.id]);
+
   const isTaskCompleted = (task: IntroTask) => {
     return task.quizzes.every((q) => solvedQuizIds.includes(q.id));
   };
@@ -55,15 +81,15 @@ export function IntroClient() {
       <Navbar />
 
       <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 pb-24">
-        {/* Course Banner in Liquid Glass Card */}
+        {/* Course Banner */}
         <div className="mb-8">
-          <div className="nerms-glass-card rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-2xl">
+          <div className="nerms-glass-card rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl">
             <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full nerms-liquid-badge text-emerald-300 text-xs font-mono font-medium mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full nerms-liquid-badge text-emerald-300 text-xs font-mono font-medium mb-3">
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>{t.course.officialCurriculum}</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight">
                 {course.title}
               </h1>
               <p className="text-xs sm:text-sm text-slate-300/90 mt-2 leading-relaxed">
@@ -71,21 +97,21 @@ export function IntroClient() {
               </p>
             </div>
 
-            {/* Overall Progress Widget in Liquid Frosted Pod */}
-            <div className="w-full md:w-72 p-4 sm:p-5 rounded-2xl nerms-liquid-pod shrink-0 shadow-lg">
+            {/* Overall Progress Widget with Tabular Numbers */}
+            <div className="w-full md:w-72 p-4 sm:p-5 rounded-2xl nerms-liquid-pod shrink-0">
               <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-2.5">
                 <span>{t.course.courseProgress}</span>
-                <span className="text-emerald-400 font-bold drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]">
+                <span className="text-emerald-400 font-bold tabular-nums">
                   {progressPercent}%
                 </span>
               </div>
-              <div className="w-full bg-black/40 rounded-full h-2.5 overflow-hidden p-0.5 border border-white/[0.08] shadow-[inset_0_1px_2px_rgba(0,0,0,0.5)]">
+              <div className="w-full bg-black/50 rounded-full h-2 overflow-hidden p-0.5 border border-white/[0.08]">
                 <div
-                  className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all duration-300 rounded-full shadow-[0_0_12px_rgba(16,185,129,0.5),inset_0_1px_0_rgba(255,255,255,0.4)]"
+                  className="bg-emerald-500 h-full transition-all duration-300 rounded-full"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-              <p className="text-[11px] text-slate-400 mt-2 font-mono">
+              <p className="text-[11px] text-slate-400 mt-2 font-mono tabular-nums">
                 {solvedCount} {t.course.of} {totalQuestions} {t.course.questionsCompleted}
               </p>
             </div>
@@ -95,13 +121,13 @@ export function IntroClient() {
         {/* Course Body: Wide Two-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column (Outline Stepper) */}
-          <div className="lg:col-span-4 xl:col-span-3 space-y-2.5 sticky top-24">
+          <div className="lg:col-span-4 xl:col-span-3 space-y-2 sticky top-24">
             <div className="flex items-center justify-between px-1 mb-2">
-              <h3 className="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">
+              <h3 className="text-xs font-mono font-medium text-slate-400">
                 {t.course.outline}
               </h3>
-              <span className="text-[11px] font-mono text-slate-400 nerms-liquid-pod px-2.5 py-0.5 rounded-full">
-                {course.tasks.length} {language === "az" ? "Tapşırıq" : "Tasks"}
+              <span className="text-[11px] font-mono text-slate-400 nerms-liquid-pod px-2.5 py-0.5 rounded-full tabular-nums">
+                {course.tasks.length} {language === "az" ? "tapşırıq" : "tasks"}
               </span>
             </div>
 
@@ -114,19 +140,19 @@ export function IntroClient() {
                 <button
                   key={task.id}
                   onClick={() => setActiveTaskIdx(idx)}
-                  className={`w-full text-left p-4 rounded-2xl transition-all duration-200 flex items-start gap-3.5 backdrop-blur-xl ${
+                  className={`w-full text-left p-4 rounded-2xl transition-all duration-140 flex items-start gap-3.5 ${
                     active
-                      ? "bg-gradient-to-r from-emerald-500/20 to-white/[0.04] border border-emerald-400/40 border-t-emerald-300/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.35),0_8px_20px_rgba(0,0,0,0.4)] translate-x-1"
-                      : "nerms-liquid-pod hover:bg-white/[0.08] hover:border-white/[0.18]"
+                      ? "bg-emerald-500/10 border border-emerald-400/30 text-white shadow-md translate-x-0.5"
+                      : "nerms-liquid-pod hover:bg-white/[0.05] hover:border-white/[0.14]"
                   }`}
                 >
                   <div
-                    className={`w-6 h-6 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                    className={`w-6 h-6 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 transition-colors tabular-nums ${
                       completed
-                        ? "bg-emerald-500 text-slate-950 font-bold shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                        ? "bg-emerald-500 text-slate-950 font-bold"
                         : active
-                        ? "bg-emerald-500/25 text-emerald-300 border border-emerald-400/40"
-                        : "bg-white/[0.06] text-slate-400 border border-white/[0.08]"
+                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-400/30"
+                        : "bg-white/[0.05] text-slate-400 border border-white/[0.08]"
                     }`}
                   >
                     {completed ? <Check className="w-3.5 h-3.5 stroke-[3]" /> : task.id}
@@ -140,7 +166,7 @@ export function IntroClient() {
                     >
                       {task.title}
                     </h4>
-                    <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+                    <p className="text-[11px] text-slate-400 font-mono mt-0.5 tabular-nums">
                       {taskSolvedCount}/{task.quizzes.length} {t.course.answered}
                     </p>
                   </div>
@@ -151,7 +177,7 @@ export function IntroClient() {
             {isAllCourseCompleted && (
               <div className="p-4 rounded-2xl nerms-liquid-badge text-xs text-emerald-200 flex items-center gap-2.5 mt-4">
                 <Trophy className="w-5 h-5 text-emerald-300 shrink-0" />
-                <span className="font-semibold leading-relaxed">
+                <span className="font-medium leading-relaxed">
                   {t.course.congratulations}
                 </span>
               </div>
@@ -160,10 +186,10 @@ export function IntroClient() {
 
           {/* Right Column (Lesson Reading & Quizzes) */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
-            <article className="nerms-glass-panel rounded-3xl p-6 sm:p-10 lg:p-12 space-y-6 shadow-2xl">
+            <article className="nerms-glass-panel rounded-3xl p-6 sm:p-10 lg:p-12 space-y-6 shadow-xl">
               {/* Task Title */}
               <div className="pb-4 border-b border-white/[0.08]">
-                <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-semibold mb-1">
+                <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-medium mb-1.5 tabular-nums">
                   <span>
                     {t.course.task} {activeTask.id} {t.course.of} {course.tasks.length}
                   </span>
@@ -177,7 +203,7 @@ export function IntroClient() {
               </div>
 
               {/* Lesson Narrative Content */}
-              <div className="space-y-4 text-xs sm:text-[14px] text-slate-200 leading-[1.75] font-normal">
+              <div className="space-y-4 text-xs sm:text-[14px] text-slate-200 leading-[1.75] font-normal max-w-prose">
                 {activeTask.content.map((paragraph, pIdx) => (
                   <p key={pIdx}>{paragraph}</p>
                 ))}
@@ -187,10 +213,23 @@ export function IntroClient() {
               {activeTask.hasDiagram === "triad" && <TriadDiagram />}
               {activeTask.hasDiagram === "components" && <ComponentFlowDiagram />}
               {activeTask.hasDiagram === "purdue" && <PurdueDiagram />}
+              {activeTask.id === 4 && (
+                <div className="my-6">
+                  <WaterPlantMimic
+                    state={plantState}
+                    onTogglePump={() =>
+                      setPlantState((prev) => ({ ...prev, pumpInletState: !prev.pumpInletState }))
+                    }
+                    onToggleValve={() =>
+                      setPlantState((prev) => ({ ...prev, valveOutletState: !prev.valveOutletState }))
+                    }
+                  />
+                </div>
+              )}
 
-              {/* Key Takeaways Box in Liquid Frosted Pod */}
-              <div className="p-6 rounded-2xl nerms-liquid-pod border-emerald-500/30 space-y-2">
-                <h4 className="text-xs font-bold font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+              {/* Key Takeaways Box */}
+              <div className="p-6 rounded-2xl nerms-liquid-pod border-emerald-500/25 space-y-2">
+                <h4 className="text-xs font-bold font-mono text-emerald-400 flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   {t.course.keyTakeaways}
                 </h4>
@@ -239,7 +278,7 @@ export function IntroClient() {
                   type="button"
                   disabled={activeTaskIdx === 0}
                   onClick={() => setActiveTaskIdx((prev) => Math.max(0, prev - 1))}
-                  className="nerms-liquid-btn-secondary px-5 py-2.5 rounded-full text-xs font-medium disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-[0.98]"
+                  className="nerms-glass-nav-btn px-5 py-2.5 rounded-full text-xs font-medium disabled:opacity-30 disabled:pointer-events-none"
                 >
                   {t.course.prevTask}
                 </button>
@@ -248,7 +287,7 @@ export function IntroClient() {
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx((prev) => Math.min(course.tasks.length - 1, prev + 1))}
-                    className="nerms-liquid-btn-primary px-6 py-2.5 rounded-full text-xs font-semibold flex items-center gap-2 active:scale-[0.98] transition-all"
+                    className="nerms-liquid-btn-primary px-6 py-2.5 rounded-full text-xs font-semibold flex items-center gap-2"
                   >
                     <span>{t.course.nextTask}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -257,7 +296,7 @@ export function IntroClient() {
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx(0)}
-                    className="nerms-liquid-btn-secondary px-6 py-2.5 rounded-full text-xs font-semibold text-emerald-300 border-emerald-400/30 hover:border-emerald-400/50 flex items-center gap-2 active:scale-[0.98] transition-all"
+                    className="nerms-glass-nav-btn px-6 py-2.5 rounded-full text-xs font-semibold text-emerald-300 border-emerald-400/30 hover:border-emerald-400/50 flex items-center gap-2"
                   >
                     <span>{t.course.reviewFromStart}</span>
                     <ChevronRight className="w-3.5 h-3.5" />

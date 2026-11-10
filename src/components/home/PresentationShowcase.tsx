@@ -4,7 +4,17 @@ import { useState, useEffect } from "react";
 import { Activity, RotateCw, CheckCircle2 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
-import { GlassScene, GlassSwitch, GlassContent } from "@glass-sdk/liquid-glass";
+import { WaterPlantMimic } from "@/components/scada/WaterPlantMimic";
+import { INITIAL_PLANT_STATE } from "@/mock/plantInitialState";
+import {
+  GlassScene,
+  GlassSwitch,
+  GlassContent,
+  GlassTabsRoot,
+  GlassTabsList,
+  GlassTabsTrigger,
+  GlassTabsIndicator,
+} from "@glass-sdk/liquid-glass";
 
 export function PresentationShowcase() {
   const { language } = useLanguage();
@@ -16,57 +26,94 @@ export function PresentationShowcase() {
   const [pumpRunning, setPumpRunning] = useState(true);
   const [pressureMonitor, setPressureMonitor] = useState(true);
   const [sisArmed, setSisArmed] = useState(true);
+  const [valveOpen, setValveOpen] = useState(true);
+  const [waterLevel, setWaterLevel] = useState(480);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (pumpRunning) setRpm(3595 + Math.floor(Math.random() * 12));
       else setRpm(0);
-      if (pressureMonitor) setPsi(48.0 + +(Math.random() * 0.5).toFixed(1));
+
+      // Cyber-physical plant simulation dynamics
+      setWaterLevel((prev) => {
+        let delta = 0;
+        if (pumpRunning) delta += 18;
+        if (valveOpen) delta -= 18;
+        const jitter = (Math.random() - 0.5) * 4;
+        const next = Math.max(60, Math.min(960, prev + delta + jitter));
+        return Math.round(next);
+      });
+
+      if (pressureMonitor) {
+        const basePsi = 34.0 + (waterLevel / 1000) * 20.0;
+        setPsi(+(basePsi + (Math.random() * 0.4)).toFixed(1));
+      }
     }, 1200);
     return () => clearInterval(interval);
-  }, [pumpRunning, pressureMonitor]);
-
-  const tabs = [
-    { value: "physical" as const, label: t.showcase.tabs.physical },
-    { value: "purdue" as const, label: t.showcase.tabs.purdue },
-    { value: "protocols" as const, label: t.showcase.tabs.protocols },
-  ];
+  }, [pumpRunning, valveOpen, pressureMonitor, waterLevel]);
 
   return (
     <div className="nerms-glass-panel w-full max-w-6xl xl:max-w-7xl mx-auto rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl">
-      {/* Header & Tab Selector */}
+      {/* Header & Liquid Glass Tab Selector */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-6 border-b border-white/[0.08]">
-        <div className="flex items-center gap-3">
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.9)]" />
-          <span className="text-xs sm:text-sm font-mono font-semibold tracking-wider text-slate-100 uppercase">
+        <div className="flex items-center gap-2.5">
+          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+          <span className="text-xs sm:text-sm font-mono font-medium text-slate-200">
             {t.showcase.title}
-          </span>
-          <span className="text-[10px] font-mono px-3 py-1 rounded-full nerms-liquid-pod text-slate-300 hidden sm:inline">
-            {t.showcase.preview}
           </span>
         </div>
 
-        {/* Plain glassmorphism segmented tab control */}
-        <div className="flex items-center gap-1 p-1 rounded-full bg-black/40 backdrop-blur-xl border border-white/10">
-          {tabs.map((tab) => (
-            <button
-              key={tab.value}
-              onClick={() => setActiveTab(tab.value)}
-              className={`px-3.5 py-1.5 text-xs font-mono font-semibold rounded-full transition-all duration-200 ${
-                activeTab === tab.value
-                  ? "nerms-liquid-tab-active text-white"
-                  : "text-slate-400 hover:text-slate-200"
-              }`}
+        {/* Fluid Liquid Glass Segmented Tabs */}
+        <GlassScene material="regular" appearance="dark">
+          <GlassTabsRoot
+            value={activeTab}
+            onValueChange={(val) => {
+              if (val === "physical" || val === "purdue" || val === "protocols") {
+                setActiveTab(val);
+              }
+            }}
+          >
+            <GlassTabsList
+              size="sm"
+              radius="capsule"
+              material="clear"
+              appearance="dark"
+              refraction={10}
+              className="p-1 border border-white/15 bg-black/40 backdrop-blur-xl"
             >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+              <GlassTabsIndicator
+                material="regular"
+                appearance="dark"
+                radius="capsule"
+                refraction={10}
+                tint="#059669"
+              />
+              <GlassTabsTrigger
+                value="physical"
+                className="px-3.5 py-1.5 text-xs font-mono font-medium data-[active]:text-white text-slate-400 transition-colors"
+              >
+                {t.showcase.tabs.physical}
+              </GlassTabsTrigger>
+              <GlassTabsTrigger
+                value="purdue"
+                className="px-3.5 py-1.5 text-xs font-mono font-medium data-[active]:text-white text-slate-400 transition-colors"
+              >
+                {t.showcase.tabs.purdue}
+              </GlassTabsTrigger>
+              <GlassTabsTrigger
+                value="protocols"
+                className="px-3.5 py-1.5 text-xs font-mono font-medium data-[active]:text-white text-slate-400 transition-colors"
+              >
+                {t.showcase.tabs.protocols}
+              </GlassTabsTrigger>
+            </GlassTabsList>
+          </GlassTabsRoot>
+        </GlassScene>
       </div>
 
       {/* Slide 1: Physical Process Preview */}
       {activeTab === "physical" && (
-        <div className="space-y-6 animate-in fade-in duration-200">
+        <div className="space-y-6 animate-in fade-in duration-140">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
             {/* Telemetry Card 1 — Pump RPM with liquid glass switch */}
             <GlassScene material="regular" appearance="dark" className="rounded-2xl">
@@ -88,7 +135,7 @@ export function PresentationShowcase() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400 tracking-tight drop-shadow-[0_0_12px_rgba(16,185,129,0.3)]">
+                    <span className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400 tracking-tight tabular-nums">
                       {pumpRunning ? rpm : 0}{" "}
                       <span className="text-xs text-slate-400 font-normal">{t.showcase.rpmUnit}</span>
                     </span>
@@ -96,8 +143,8 @@ export function PresentationShowcase() {
                       {pumpRunning ? t.showcase.nominalFreq : "STOPPED"}
                     </span>
                   </div>
-                  <div className={`w-12 h-12 rounded-2xl border border-t-emerald-300/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)] flex items-center justify-center shrink-0 transition-colors duration-500 ${pumpRunning ? "bg-emerald-500/15 border-emerald-400/30 text-emerald-300" : "bg-slate-800/40 border-slate-600/30 text-slate-500"}`}>
-                    <RotateCw className={`w-6 h-6 transition-all duration-500 ${pumpRunning ? "animate-spin" : ""}`} style={pumpRunning ? { animationDuration: "6s" } : {}} />
+                  <div className={`w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center shrink-0 transition-colors duration-200 ${pumpRunning ? "bg-emerald-500/10 text-emerald-300 border-emerald-400/25" : "bg-white/[0.03] text-slate-500"}`}>
+                    <RotateCw className={`w-5 h-5 transition-all duration-300 ${pumpRunning ? "animate-spin" : ""}`} style={pumpRunning ? { animationDuration: "6s" } : {}} />
                   </div>
                 </div>
               </div>
@@ -123,7 +170,7 @@ export function PresentationShowcase() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-2xl sm:text-3xl font-mono font-bold text-slate-100 tracking-tight">
+                    <span className="text-2xl sm:text-3xl font-mono font-bold text-slate-100 tracking-tight tabular-nums">
                       {pressureMonitor ? psi : "—"}{" "}
                       <span className="text-xs text-slate-400 font-normal">PSI</span>
                     </span>
@@ -131,8 +178,8 @@ export function PresentationShowcase() {
                       {pressureMonitor ? t.showcase.psiRange : "MONITOR OFF"}
                     </span>
                   </div>
-                  <div className={`w-12 h-12 rounded-2xl border border-t-cyan-300/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)] flex items-center justify-center shrink-0 transition-colors duration-500 ${pressureMonitor ? "bg-cyan-500/15 border-cyan-400/30 text-cyan-300" : "bg-slate-800/40 border-slate-600/30 text-slate-500"}`}>
-                    <Activity className="w-6 h-6" />
+                  <div className={`w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center shrink-0 transition-colors duration-200 ${pressureMonitor ? "bg-cyan-500/10 text-cyan-300 border-cyan-400/25" : "bg-white/[0.03] text-slate-500"}`}>
+                    <Activity className="w-5 h-5" />
                   </div>
                 </div>
               </div>
@@ -158,22 +205,38 @@ export function PresentationShowcase() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className={`text-base sm:text-lg font-mono font-bold tracking-tight block mt-1 drop-shadow-[0_0_10px_rgba(16,185,129,0.3)] transition-colors duration-500 ${sisArmed ? "text-emerald-400" : "text-amber-400"}`}>
+                    <span className={`text-base sm:text-lg font-mono font-bold tracking-tight block mt-1 transition-colors duration-200 ${sisArmed ? "text-emerald-400" : "text-amber-400"}`}>
                       {sisArmed ? t.showcase.sisStatus : "BYPASSED"}
                     </span>
                     <span className="text-xs font-mono text-slate-400 block mt-1">
                       {t.showcase.sisCircuit}
                     </span>
                   </div>
-                  <div className={`w-12 h-12 rounded-2xl border shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)] flex items-center justify-center shrink-0 transition-colors duration-500 ${sisArmed ? "bg-emerald-500/15 border-emerald-400/30 border-t-emerald-300/50 text-emerald-300" : "bg-amber-500/15 border-amber-400/30 border-t-amber-300/50 text-amber-300"}`}>
-                    <CheckCircle2 className="w-6 h-6" />
+                  <div className={`w-12 h-12 rounded-xl border border-white/10 flex items-center justify-center shrink-0 transition-colors duration-200 ${sisArmed ? "bg-emerald-500/10 text-emerald-300 border-emerald-400/25" : "bg-amber-500/10 text-amber-300 border-amber-400/25"}`}>
+                    <CheckCircle2 className="w-5 h-5" />
                   </div>
                 </div>
               </div>
             </GlassScene>
           </div>
 
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pt-2">
+          {/* Interactive SCADA Tank-04 Mimic with Live Liquid Glass Controls */}
+          <div className="pt-2">
+            <WaterPlantMimic
+              state={{
+                ...INITIAL_PLANT_STATE,
+                pumpInletState: pumpRunning,
+                valveOutletState: valveOpen,
+                waterLevelCm: waterLevel,
+                pressurePsi: psi,
+                isOverflowing: waterLevel >= 900,
+              }}
+              onTogglePump={() => setPumpRunning(!pumpRunning)}
+              onToggleValve={() => setValveOpen(!valveOpen)}
+            />
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pt-2 max-w-prose">
             <strong className="text-white">{t.showcase.whyTitle}</strong>{" "}
             {t.showcase.physicalWhy}
           </p>
@@ -182,30 +245,30 @@ export function PresentationShowcase() {
 
       {/* Slide 2: Purdue Model Architecture Preview */}
       {activeTab === "purdue" && (
-        <div className="space-y-4 animate-in fade-in duration-200">
-          <div className="space-y-2.5 font-mono text-xs sm:text-sm">
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-indigo-950/30 border border-indigo-400/25 border-t-indigo-300/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <span className="text-indigo-300 font-bold">{t.showcase.purdueLevels[0].name}</span>
-              <span className="text-slate-300/80 text-xs">{t.showcase.purdueLevels[0].desc}</span>
+        <div className="space-y-4 animate-in fade-in duration-140">
+          <div className="space-y-2 font-mono text-xs sm:text-sm">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-indigo-950/20 border border-indigo-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span className="text-indigo-300 font-semibold">{t.showcase.purdueLevels[0].name}</span>
+              <span className="text-slate-400 text-xs">{t.showcase.purdueLevels[0].desc}</span>
             </div>
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-sky-950/30 border border-sky-400/25 border-t-sky-300/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <span className="text-sky-300 font-bold">{t.showcase.purdueLevels[1].name}</span>
-              <span className="text-slate-300/80 text-xs">{t.showcase.purdueLevels[1].desc}</span>
+            <div className="p-3.5 sm:p-4 rounded-xl bg-sky-950/20 border border-sky-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span className="text-sky-300 font-semibold">{t.showcase.purdueLevels[1].name}</span>
+              <span className="text-slate-400 text-xs">{t.showcase.purdueLevels[1].desc}</span>
             </div>
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-cyan-950/30 border border-cyan-400/25 border-t-cyan-300/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <span className="text-cyan-300 font-bold">{t.showcase.purdueLevels[2].name}</span>
-              <span className="text-slate-300/80 text-xs">{t.showcase.purdueLevels[2].desc}</span>
+            <div className="p-3.5 sm:p-4 rounded-xl bg-cyan-950/20 border border-cyan-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span className="text-cyan-300 font-semibold">{t.showcase.purdueLevels[2].name}</span>
+              <span className="text-slate-400 text-xs">{t.showcase.purdueLevels[2].desc}</span>
             </div>
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-950/30 border border-amber-400/25 border-t-amber-300/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <span className="text-amber-300 font-bold">{t.showcase.purdueLevels[3].name}</span>
-              <span className="text-slate-300/80 text-xs">{t.showcase.purdueLevels[3].desc}</span>
+            <div className="p-3.5 sm:p-4 rounded-xl bg-amber-950/20 border border-amber-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span className="text-amber-300 font-semibold">{t.showcase.purdueLevels[3].name}</span>
+              <span className="text-slate-400 text-xs">{t.showcase.purdueLevels[3].desc}</span>
             </div>
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-emerald-950/30 border border-emerald-400/25 border-t-emerald-300/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <span className="text-emerald-300 font-bold">{t.showcase.purdueLevels[4].name}</span>
-              <span className="text-slate-300/80 text-xs">{t.showcase.purdueLevels[4].desc}</span>
+            <div className="p-3.5 sm:p-4 rounded-xl bg-emerald-950/20 border border-emerald-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span className="text-emerald-300 font-semibold">{t.showcase.purdueLevels[4].name}</span>
+              <span className="text-slate-400 text-xs">{t.showcase.purdueLevels[4].desc}</span>
             </div>
           </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pt-2">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pt-2 max-w-prose">
             <strong className="text-white">{t.showcase.whyTitle}</strong>{" "}
             {t.showcase.purdueWhy}
           </p>
@@ -214,30 +277,30 @@ export function PresentationShowcase() {
 
       {/* Slide 3: Insecure Protocols Preview */}
       {activeTab === "protocols" && (
-        <div className="space-y-4 animate-in fade-in duration-200">
+        <div className="space-y-4 animate-in fade-in duration-140">
           <div className="p-5 sm:p-6 rounded-2xl nerms-liquid-pod font-mono text-xs space-y-3">
             <div className="flex items-center justify-between text-slate-300 text-xs pb-3 border-b border-white/[0.08]">
               <span>{t.showcase.modbusTitle}</span>
-              <span className="text-rose-400 font-bold px-2.5 py-0.5 rounded-full bg-rose-500/15 border border-rose-500/30">
+              <span className="text-rose-400 font-medium px-2.5 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20">
                 {t.showcase.insecureBadge}
               </span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs sm:text-sm">
-              <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08]">
                 <span className="text-slate-400 text-xs block mb-1">{t.showcase.unitId}</span>
-                <span className="text-slate-100 font-bold">0x01</span>
+                <span className="text-slate-100 font-semibold tabular-nums">0x01</span>
               </div>
-              <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08]">
                 <span className="text-slate-400 text-xs block mb-1">{t.showcase.functionCode}</span>
-                <span className="text-amber-400 font-bold">{t.showcase.writeCoil}</span>
+                <span className="text-amber-300 font-semibold tabular-nums">{t.showcase.writeCoil}</span>
               </div>
-              <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08]">
                 <span className="text-slate-400 text-xs block mb-1">{t.showcase.coilAddress}</span>
-                <span className="text-slate-100 font-bold">{t.showcase.pump1}</span>
+                <span className="text-slate-100 font-semibold tabular-nums">{t.showcase.pump1}</span>
               </div>
-              <div className="p-3 rounded-xl bg-white/[0.04] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08]">
                 <span className="text-slate-400 text-xs block mb-1">{t.showcase.value}</span>
-                <span className="text-emerald-400 font-bold">{t.showcase.forceOn}</span>
+                <span className="text-emerald-400 font-semibold tabular-nums">{t.showcase.forceOn}</span>
               </div>
             </div>
             <div className="text-xs text-slate-400 pt-2 flex items-center justify-between border-t border-white/[0.04]">
@@ -246,7 +309,7 @@ export function PresentationShowcase() {
               <span><strong className="text-rose-400">{t.showcase.hashNone}</strong></span>
             </div>
           </div>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pt-2">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed pt-2 max-w-prose">
             <strong className="text-white">{t.showcase.whyTitle}</strong>{" "}
             {t.showcase.protocolsWhy}
           </p>

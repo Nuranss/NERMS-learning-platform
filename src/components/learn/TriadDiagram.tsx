@@ -25,10 +25,10 @@ export function TriadDiagram() {
         {/* Traditional IT: CIA Triad */}
         <div className="p-5 sm:p-6 rounded-2xl nerms-liquid-pod space-y-3.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-mono text-cyan-400 tracking-wide drop-shadow-[0_0_8px_rgba(34,211,238,0.3)]">
-              {isAz ? "ƏNƏNƏVİ IT" : "TRADITIONAL IT"}
+            <span className="text-xs font-bold font-mono text-cyan-400 tracking-wide">
+              {isAz ? "Ənənəvi IT" : "Traditional IT"}
             </span>
-            <span className="text-[11px] font-mono text-slate-400">"CIA TRIAD"</span>
+            <span className="text-[11px] font-mono text-slate-400">"CIA Triad"</span>
           </div>
 
           <div className="space-y-2.5">
@@ -88,12 +88,12 @@ export function TriadDiagram() {
         </div>
 
         {/* Industrial OT: AIC Triad */}
-        <div className="p-5 sm:p-6 rounded-2xl nerms-liquid-pod border-emerald-500/30 space-y-3.5">
+        <div className="p-5 sm:p-6 rounded-2xl nerms-liquid-pod border-emerald-500/25 space-y-3.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-mono text-emerald-400 tracking-wide drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]">
-              {isAz ? "ƏMƏLİYYAT TEXNOLOGİYASI (OT)" : "OPERATIONAL TECH (OT)"}
+            <span className="text-xs font-bold font-mono text-emerald-400 tracking-wide">
+              {isAz ? "Əməliyyat Texnologiyası (OT)" : "Operational Technology (OT)"}
             </span>
-            <span className="text-[11px] font-mono text-emerald-400/90">"AIC / SAFETY FIRST"</span>
+            <span className="text-[11px] font-mono text-emerald-400/90">"AIC / Safety First"</span>
           </div>
 
           <div className="space-y-2.5">
