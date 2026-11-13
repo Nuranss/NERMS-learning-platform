@@ -34,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} dark antialiased`}>
-      <body className="min-h-screen bg-[#060911] text-slate-200 antialiased selection:bg-emerald-500/25 selection:text-emerald-200 flex flex-col overflow-x-hidden relative">
+      <body className="min-h-screen bg-[#060911] text-slate-200 antialiased selection:bg-emerald-500/25 selection:text-emerald-200 flex flex-col relative">
         {/* iOS 26 Ambient Liquid Aurora & Light Refraction Layer */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
           {/* Liquid Orb 1: Upper Emerald Glow */}

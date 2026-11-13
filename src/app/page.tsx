@@ -7,157 +7,83 @@ import { Footer } from "@/components/layout/Footer";
 import { PresentationShowcase } from "@/components/home/PresentationShowcase";
 import { CourseCard } from "@/components/home/CourseCard";
 import { COURSES_CATALOG } from "@/mock/coursesCatalog";
-import { BookOpen, Layers } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
-import {
-  GlassScene,
-  GlassSurface,
-  GlassButton,
-  GlassContent,
-} from "@glass-sdk/liquid-glass";
+import { IndustrialAurora } from "@/components/ui/IndustrialAurora";
+import { LiquidGlassStage } from "@/components/ui/LiquidGlassPanel";
+
+import { KineticTextCycler } from "@/components/ui/KineticTextCycler";
 
 export default function HomePage() {
   const { language } = useLanguage();
   const t = useTranslation(language);
 
   return (
-    <div className="flex flex-col min-h-screen w-full">
+    <LiquidGlassStage className="relative flex min-h-screen w-full flex-col overflow-x-clip">
+      {/* Dynamic Fluid Industrial Aurora & SCADA Grid Refraction Source */}
+      <IndustrialAurora enableMouseParallax={false} />
+
+      {/* Floating Liquid Glass Top Navigation */}
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 sm:pt-14 pb-24 flex flex-col">
-        {/* Hero Section */}
-        <section className="w-full mb-14 lg:mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column: Authoritative Engineering Typography & CTA */}
-            <div className="lg:col-span-7 flex flex-col justify-center">
-              <div className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full nerms-liquid-badge text-xs font-mono font-medium text-emerald-300 tracking-normal mb-5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>{t.hero.badge}</span>
-              </div>
-
-              {/* Anti-Slop: Confident, uniform typographic hierarchy without neon text-clip glow */}
-              <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-bold text-white tracking-tight leading-[1.14] mb-4">
-                {t.hero.title1}{" "}
-                <span className="text-emerald-400 font-semibold">{t.hero.title2}</span>
-              </h1>
-
-              <p className="text-sm sm:text-base text-slate-300/90 leading-relaxed mb-8 max-w-2xl font-normal">
-                {t.hero.desc}
-              </p>
-
-              {/* Convex Liquid Glass CTA Button */}
-              <div className="flex flex-wrap items-center gap-4 mb-8">
-                <GlassScene material="regular" appearance="dark">
-                  <GlassButton
-                    material="regular"
-                    appearance="dark"
-                    radius="capsule"
-                    tint="#059669"
-                    refraction={24}
-                    interactive
-                    nativeButton={false}
-                    render={<Link href="/rooms/intro-to-ics" />}
-                    className="px-8 py-3.5 text-sm sm:text-base font-semibold flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-950/60 border border-emerald-400/35 active:scale-95 transition-all"
-                  >
-                    <BookOpen className="w-5 h-5 text-emerald-100" />
-                    <span className="text-white">{t.hero.cta}</span>
-                  </GlassButton>
-                </GlassScene>
-              </div>
-
-              {/* Metric chips with tabular numbers & liquid bevels */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5 border-t border-white/[0.08] text-xs font-mono">
-                <div className="nerms-liquid-pod p-3.5 rounded-2xl">
-                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm tabular-nums">05</span>
-                  <span className="text-slate-300/80">{t.hero.chips.modules}</span>
-                </div>
-                <div className="nerms-liquid-pod p-3.5 rounded-2xl">
-                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm tabular-nums">L0–L5</span>
-                  <span className="text-slate-300/80">{t.hero.chips.diagrams}</span>
-                </div>
-                <div className="nerms-liquid-pod p-3.5 rounded-2xl">
-                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm tabular-nums">14 Qs</span>
-                  <span className="text-slate-300/80">{t.hero.chips.checks}</span>
-                </div>
-                <div className="nerms-liquid-pod p-3.5 rounded-2xl">
-                  <span className="text-emerald-400 font-bold block mb-0.5 text-sm tabular-nums">0 AZN</span>
-                  <span className="text-slate-300/80">{t.hero.chips.free}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Industrial Control Photography in Ultra-Refractive Liquid Glass Frame */}
-            <div className="lg:col-span-5 w-full">
-              <GlassScene
-                material="regular"
-                appearance="dark"
-                className="w-full relative nerms-liquid-photo-frame rounded-3xl"
-                style={{ aspectRatio: "16/10" }}
+      <main className="relative z-10 flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 sm:pt-14 pb-24 flex flex-col">
+        <section aria-labelledby="home-title" className="mb-12 grid items-center gap-8 lg:mb-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12">
+          <div className="home-hero-copy min-w-0">
+            <h1 id="home-title" className="text-balance text-4xl font-bold leading-[1.04] tracking-tight text-white sm:text-5xl xl:text-6xl">
+              {t.hero.title}
+            </h1>
+            <KineticTextCycler className="max-w-lg text-balance text-2xl font-semibold leading-tight sm:text-3xl" />
+            <p className="mb-7 mt-5 max-w-md text-base leading-relaxed text-slate-300 lg:text-lg">
+              {t.hero.desc}
+            </p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <Link
+                href="/rooms/intro-to-ics"
+                className="group inline-flex min-h-12 items-center gap-3 rounded-full border border-emerald-300/50 bg-emerald-400 px-6 py-3 text-sm font-bold text-emerald-950 transition-colors hover:bg-emerald-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-300"
               >
-                <GlassContent className="rounded-2xl overflow-hidden">
-                  <Image
-                    src="/industrial-control-room.jpg"
-                    alt="Industrial Control Room and SCADA Operations"
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="object-cover"
-                  />
-                </GlassContent>
-                <GlassSurface
-                  radius={24}
-                  material="regular"
-                  appearance="dark"
-                  refraction={32}
-                  interactive
-                  fluid
-                  className="absolute inset-0 rounded-2xl shadow-2xl"
-                  style={{ padding: 0 }}
-                />
-              </GlassScene>
+                {t.hero.cta}
+                <ArrowRight aria-hidden="true" className="size-4 motion-safe:transition-transform motion-safe:group-hover:translate-x-1" />
+              </Link>
             </div>
+            <p className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-300">
+              <span>{t.hero.modules}</span>
+              <span aria-hidden="true" className="text-emerald-400">·</span>
+              <span>{t.hero.checks}</span>
+            </p>
+          </div>
+
+          <div className="home-hero-photo relative aspect-[16/10] overflow-hidden rounded-3xl border border-white/20 bg-[#0b1820] shadow-2xl">
+            <Image
+              src="/industrial-control-room.jpg"
+              alt={t.hero.imageAlt}
+              fill
+              loading="eager"
+              sizes="(min-width: 1600px) 830px, (min-width: 1024px) 56vw, 100vw"
+              className="home-hero-image object-cover"
+            />
+            <div aria-hidden="true" className="home-hero-scan pointer-events-none absolute inset-0" />
           </div>
         </section>
 
-        {/* Presentation Showcase */}
-        <section className="w-full mb-16 lg:mb-20">
+        <section id="scada-demo" className="home-section-enter mb-14 w-full scroll-mt-24 lg:mb-20">
           <PresentationShowcase />
         </section>
 
-        {/* All Courses Section */}
-        <section className="w-full max-w-6xl xl:max-w-7xl mx-auto border-t border-white/[0.08] pt-12">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1.5">
-                <Layers className="w-3.5 h-3.5" />
-                <span>{t.catalog.directory}</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                {t.catalog.allCourses}
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300/80 mt-1">
-                {t.catalog.subtitle}
-              </p>
-            </div>
-            <span className="text-xs font-mono text-slate-300 nerms-liquid-pod px-3.5 py-1.5 rounded-full self-start sm:self-auto tabular-nums">
-              {t.catalog.showing}
-            </span>
-          </div>
-
+        <section aria-labelledby="home-courses" className="home-section-enter w-full border-t border-white/10 pt-10">
+          <h2 id="home-courses" className="mb-2 text-3xl font-bold tracking-tight text-white">
+            {t.catalog.allCourses}
+          </h2>
+          <p className="mb-6 text-sm text-slate-300">{t.catalog.subtitle}</p>
           <div className="space-y-4">
             {COURSES_CATALOG.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
           </div>
-
-          <div className="mt-6 p-4 rounded-2xl nerms-liquid-pod text-center text-xs text-slate-400 font-mono">
-            <span>{t.catalog.expansion}</span>
-          </div>
         </section>
       </main>
 
       <Footer />
-    </div>
+    </LiquidGlassStage>
   );
 }

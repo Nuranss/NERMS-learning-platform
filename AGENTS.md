@@ -12,3 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 - **DO NOT commit or push changes unless explicitly instructed**: Never run `git commit` or `git push` unless the user explicitly types a command to commit (e.g. "commit", "push").
 - **DO NOT ask the user to commit in responses**: Do not prompt or repeatedly ask the user if they want to commit. Simply perform the requested work, verify the build, and wait for the user to instruct when to commit.
+
+## Autonomous Best-Practice Discovery
+
+- When given broad or minimal instructions (e.g., "make a website", "add payment", "style this page", "setup auth"), proactively query the skills catalog via the `agentic-awesome-skills` MCP server (`aas_search_skills`) to discover domain-specific best practices, anti-slop guidelines, and architectural playbooks before generating code.

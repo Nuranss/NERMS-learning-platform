@@ -10,6 +10,8 @@ import { ComponentFlowDiagram } from "@/components/learn/ComponentFlowDiagram";
 import { QuizQuestion } from "@/components/learn/QuizQuestion";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useTranslation } from "@/i18n/translations";
+import { IndustrialAurora } from "@/components/ui/IndustrialAurora";
+import { LiquidGlassStage, LiquidGlassPanel } from "@/components/ui/LiquidGlassPanel";
 import {
   BookOpen,
   Sparkles,
@@ -51,15 +53,30 @@ export function IntroClient() {
   const isAllCourseCompleted = solvedCount === totalQuestions;
 
   return (
-    <div className="flex flex-col min-h-screen w-full">
+    <LiquidGlassStage className="flex flex-col min-h-screen w-full relative">
+      {/* Background Refraction Source */}
+      <IndustrialAurora enableMouseParallax />
+
+      {/* Top Navbar */}
       <Navbar />
 
-      <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 pb-24">
+      <main className="relative z-10 flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-10 lg:px-16 pt-8 pb-24">
         {/* Course Banner */}
         <div className="mb-8">
-          <div className="nerms-glass-card rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl">
+          <LiquidGlassPanel
+            glowTint="emerald"
+            config={{
+              blurAmount: 0.22,
+              refraction: 0.65,
+              chromAberration: 0.045,
+              edgeHighlight: 0.15,
+              specular: 0.20,
+              cornerRadius: 24,
+            }}
+            className="p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl"
+          >
             <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full nerms-liquid-badge text-emerald-300 text-xs font-mono font-medium mb-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-mono font-medium mb-3">
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>{t.course.officialCurriculum}</span>
               </div>
@@ -72,16 +89,16 @@ export function IntroClient() {
             </div>
 
             {/* Overall Progress Widget with Tabular Numbers */}
-            <div className="w-full md:w-72 p-4 sm:p-5 rounded-2xl nerms-liquid-pod shrink-0">
+            <div className="w-full md:w-72 p-4 sm:p-5 rounded-2xl bg-white/[0.03] border border-white/15 backdrop-blur-xl shadow-lg shrink-0">
               <div className="flex items-center justify-between text-xs font-mono text-slate-300 mb-2.5">
                 <span>{t.course.courseProgress}</span>
                 <span className="text-emerald-400 font-bold tabular-nums">
                   {progressPercent}%
                 </span>
               </div>
-              <div className="w-full bg-black/50 rounded-full h-2 overflow-hidden p-0.5 border border-white/[0.08]">
+              <div className="w-full bg-black/40 rounded-full h-2 overflow-hidden p-0.5 border border-white/10">
                 <div
-                  className="bg-emerald-500 h-full transition-all duration-300 rounded-full"
+                  className="bg-emerald-500 h-full transition-all duration-300 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)]"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -89,7 +106,7 @@ export function IntroClient() {
                 {solvedCount} {t.course.of} {totalQuestions} {t.course.questionsCompleted}
               </p>
             </div>
-          </div>
+          </LiquidGlassPanel>
         </div>
 
         {/* Course Body: Wide Two-Column Layout */}
@@ -100,7 +117,7 @@ export function IntroClient() {
               <h3 className="text-xs font-mono font-medium text-slate-400">
                 {t.course.outline}
               </h3>
-              <span className="text-[11px] font-mono text-slate-400 nerms-liquid-pod px-2.5 py-0.5 rounded-full tabular-nums">
+              <span className="text-[11px] font-mono text-slate-400 px-2.5 py-0.5 rounded-full bg-white/[0.03] border border-white/10 tabular-nums">
                 {course.tasks.length} {language === "az" ? "tapşırıq" : "tasks"}
               </span>
             </div>
@@ -114,16 +131,16 @@ export function IntroClient() {
                 <button
                   key={task.id}
                   onClick={() => setActiveTaskIdx(idx)}
-                  className={`w-full text-left p-4 rounded-2xl transition-all duration-140 flex items-start gap-3.5 ${
+                  className={`w-full text-left p-4 rounded-2xl transition-all duration-200 flex items-start gap-3.5 backdrop-blur-xl ${
                     active
-                      ? "bg-emerald-500/10 border border-emerald-400/30 text-white shadow-md translate-x-0.5"
-                      : "nerms-liquid-pod hover:bg-white/[0.05] hover:border-white/[0.14]"
+                      ? "bg-emerald-500/15 border border-emerald-400/40 text-white shadow-[0_4px_16px_rgba(16,185,129,0.2)] translate-x-0.5"
+                      : "bg-white/[0.02] border border-white/10 hover:bg-white/[0.06] hover:border-white/20 text-slate-300 shadow-sm"
                   }`}
                 >
                   <div
                     className={`w-6 h-6 rounded-lg font-mono font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 transition-colors tabular-nums ${
                       completed
-                        ? "bg-emerald-500 text-slate-950 font-bold"
+                        ? "bg-emerald-500 text-slate-950 font-bold shadow-[0_0_8px_rgba(16,185,129,0.4)]"
                         : active
                         ? "bg-emerald-500/20 text-emerald-300 border border-emerald-400/30"
                         : "bg-white/[0.05] text-slate-400 border border-white/[0.08]"
@@ -149,7 +166,7 @@ export function IntroClient() {
             })}
 
             {isAllCourseCompleted && (
-              <div className="p-4 rounded-2xl nerms-liquid-badge text-xs text-emerald-200 flex items-center gap-2.5 mt-4">
+              <div className="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-400/30 text-xs text-emerald-200 flex items-center gap-2.5 mt-4 shadow-lg">
                 <Trophy className="w-5 h-5 text-emerald-300 shrink-0" />
                 <span className="font-medium leading-relaxed">
                   {t.course.congratulations}
@@ -160,7 +177,18 @@ export function IntroClient() {
 
           {/* Right Column (Lesson Reading & Quizzes) */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
-            <article className="nerms-glass-panel rounded-3xl p-6 sm:p-10 lg:p-12 space-y-6 shadow-xl">
+            <LiquidGlassPanel
+              glowTint="neutral"
+              config={{
+                blurAmount: 0.16,
+                refraction: 0.85,
+                chromAberration: 0.07,
+                edgeHighlight: 0.22,
+                specular: 0.30,
+                cornerRadius: 28,
+              }}
+              className="p-6 sm:p-10 lg:p-12 space-y-6 shadow-xl"
+            >
               {/* Task Title */}
               <div className="pb-4 border-b border-white/[0.08]">
                 <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-medium mb-1.5 tabular-nums">
@@ -188,8 +216,8 @@ export function IntroClient() {
               {activeTask.hasDiagram === "components" && <ComponentFlowDiagram />}
               {activeTask.hasDiagram === "purdue" && <PurdueDiagram />}
 
-              {/* Key Takeaways Box */}
-              <div className="p-6 rounded-2xl nerms-liquid-pod border-emerald-500/25 space-y-2">
+              {/* Key Takeaways Box (Transparent Specular Liquid Glass) */}
+              <div className="p-6 rounded-2xl bg-white/[0.03] border border-emerald-500/30 backdrop-blur-xl space-y-2 shadow-lg">
                 <h4 className="text-xs font-bold font-mono text-emerald-400 flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   {t.course.keyTakeaways}
@@ -239,7 +267,7 @@ export function IntroClient() {
                   type="button"
                   disabled={activeTaskIdx === 0}
                   onClick={() => setActiveTaskIdx((prev) => Math.max(0, prev - 1))}
-                  className="nerms-glass-nav-btn px-5 py-2.5 rounded-full text-xs font-medium disabled:opacity-30 disabled:pointer-events-none"
+                  className="px-5 py-2.5 rounded-full text-xs font-mono font-medium text-slate-300 bg-white/[0.04] border border-white/10 hover:border-white/20 disabled:opacity-30 disabled:pointer-events-none transition-all active:scale-95"
                 >
                   {t.course.prevTask}
                 </button>
@@ -248,7 +276,11 @@ export function IntroClient() {
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx((prev) => Math.min(course.tasks.length - 1, prev + 1))}
-                    className="nerms-liquid-btn-primary px-6 py-2.5 rounded-full text-xs font-semibold flex items-center gap-2"
+                    className="
+                      px-6 py-2.5 rounded-full text-xs font-mono font-semibold text-white
+                      bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-400/40 hover:border-emerald-400/70
+                      shadow-[0_4px_16px_rgba(16,185,129,0.25)] flex items-center gap-2 transition-all active:scale-95
+                    "
                   >
                     <span>{t.course.nextTask}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -257,19 +289,23 @@ export function IntroClient() {
                   <button
                     type="button"
                     onClick={() => setActiveTaskIdx(0)}
-                    className="nerms-glass-nav-btn px-6 py-2.5 rounded-full text-xs font-semibold text-emerald-300 border-emerald-400/30 hover:border-emerald-400/50 flex items-center gap-2"
+                    className="
+                      px-6 py-2.5 rounded-full text-xs font-mono font-semibold text-emerald-300
+                      bg-emerald-500/10 border border-emerald-400/30 hover:border-emerald-400/50
+                      flex items-center gap-2 transition-all active:scale-95
+                    "
                   >
                     <span>{t.course.reviewFromStart}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 )}
               </div>
-            </article>
+            </LiquidGlassPanel>
           </div>
         </div>
       </main>
 
       <Footer />
-    </div>
+    </LiquidGlassStage>
   );
 }

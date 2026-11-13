@@ -30,6 +30,66 @@
     visibility: visible !important;
   }
 
+  /* Keyframes for Industrial Cyber Aurora Orbs */
+  @keyframes aurora-drift-1 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(60px, -45px) scale(1.08);
+    }
+    66% {
+      transform: translate(-40px, 35px) scale(0.96);
+    }
+  }
+
+  @keyframes aurora-drift-2 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    33% {
+      transform: translate(-70px, 50px) scale(0.94);
+    }
+    66% {
+      transform: translate(45px, -35px) scale(1.10);
+    }
+  }
+
+  @keyframes aurora-drift-3 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(40px, 60px) scale(1.06);
+    }
+  }
+
+  @keyframes aurora-drift-4 {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-50px, -40px) scale(1.05);
+    }
+  }
+
+  .animate-aurora-drift-1 {
+    animation: aurora-drift-1 26s ease-in-out infinite;
+    will-change: transform;
+  }
+  .animate-aurora-drift-2 {
+    animation: aurora-drift-2 32s ease-in-out infinite;
+    will-change: transform;
+  }
+  .animate-aurora-drift-3 {
+    animation: aurora-drift-3 24s ease-in-out infinite;
+    will-change: transform;
+  }
+  .animate-aurora-drift-4 {
+    animation: aurora-drift-4 28s ease-in-out infinite;
+    will-change: transform;
+  }
+
   /* Keyframes for iOS 26 Ambient Liquid Aurora */
   @keyframes liquid-float-1 {
     0%, 100% {
@@ -78,6 +138,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .animate-aurora-drift-1,
+    .animate-aurora-drift-2,
+    .animate-aurora-drift-3,
+    .animate-aurora-drift-4,
     .animate-liquid-1,
     .animate-liquid-2,
     .animate-liquid-3 {
@@ -90,7 +154,7 @@
     color: var(--text-secondary);
     font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.65;
-    overflow-x: hidden;
+    overflow-x: clip;
     letter-spacing: -0.01em;
   }
 
@@ -110,74 +174,74 @@
    Liquid Glass System: iOS 26 Ultra-Refractive Optics & Specular Bevels
    ========================================================================== */
 
-/* Floating Liquid Glass Navigation Island */
+/* Floating Liquid Glass Navigation Island (Crystal-Clear 0-Blur Transparent Liquid Glass) */
 .nerms-liquid-island {
   position: relative;
   background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.02) 40%,
-    rgba(7, 12, 22, 0.78) 100%
+    135deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.01) 50%,
+    rgba(255, 255, 255, 0.03) 100%
   );
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.45);
   box-shadow: 
-    0 16px 40px -10px rgba(0, 0, 0, 0.65),
-    0 0 24px -6px rgba(16, 185, 129, 0.1),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.3);
+    0 16px 40px -10px rgba(0, 0, 0, 0.5),
+    0 0 24px -6px rgba(16, 185, 129, 0.15),
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* Liquid Glass Card */
+/* Liquid Glass Card (Crystal-Clear 0-Blur Transparent Liquid Glass) */
 .nerms-glass-card {
   position: relative;
   background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.07) 0%,
-    rgba(255, 255, 255, 0.01) 40%,
-    rgba(9, 14, 24, 0.7) 100%
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.01) 50%,
+    rgba(255, 255, 255, 0.025) 100%
   );
-  backdrop-filter: blur(22px) saturate(170%);
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.4);
   box-shadow: 
-    0 16px 40px -12px rgba(0, 0, 0, 0.65),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.25);
+    0 16px 40px -12px rgba(0, 0, 0, 0.55),
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.2);
   transition: border-color 160ms ease-out, transform 160ms ease-out, box-shadow 160ms ease-out;
 }
 
 .nerms-glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  border-top-color: rgba(255, 255, 255, 0.45);
+  border-color: rgba(255, 255, 255, 0.25);
+  border-top-color: rgba(255, 255, 255, 0.6);
   box-shadow: 
-    0 20px 48px -10px rgba(0, 0, 0, 0.7),
-    0 0 28px -6px rgba(16, 185, 129, 0.12),
-    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.35);
-  transform: translateY(-1.5px);
+    0 20px 48px -10px rgba(0, 0, 0, 0.65),
+    0 0 28px -6px rgba(16, 185, 129, 0.2),
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
 }
 
-/* Liquid Glass Panel (Showcase Container) */
+/* Liquid Glass Panel (Showcase Container - Crystal-Clear 0-Blur Transparent Liquid Glass) */
 .nerms-glass-panel {
   position: relative;
   background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.01) 35%,
-    rgba(8, 12, 22, 0.8) 100%
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.01) 50%,
+    rgba(255, 255, 255, 0.025) 100%
   );
-  backdrop-filter: blur(26px) saturate(180%);
-  -webkit-backdrop-filter: blur(26px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.42);
   box-shadow: 
-    0 24px 60px -12px rgba(0, 0, 0, 0.7),
-    0 0 35px -10px rgba(16, 185, 129, 0.1),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.3);
+    0 24px 60px -12px rgba(0, 0, 0, 0.6),
+    0 0 35px -10px rgba(6, 182, 212, 0.15),
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Primary Convex Liquid Emerald Glass Button */
@@ -276,20 +340,20 @@
   transform: scale(0.97);
 }
 
-/* Precision Refractive Pods (Telemetry cells, metric pods) */
+/* Precision Refractive Pods (Telemetry cells, metric pods - 0-Blur Transparent Liquid Glass) */
 .nerms-liquid-pod {
   background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.015) 100%
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.01) 100%
   );
-  backdrop-filter: blur(18px) saturate(170%);
-  -webkit-backdrop-filter: blur(18px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.35);
   box-shadow: 
     0 10px 24px -8px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0.5px 0 rgba(255, 255, 255, 0.2),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3),
     inset 0 -1px 1px 0 rgba(0, 0, 0, 0.15);
 }
 
@@ -325,22 +389,22 @@
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Frame for Hero Photography */
+/* Frame for Hero Photography (Transparent Specular Liquid Glass) */
 .nerms-liquid-photo-frame {
   position: relative;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.02) 50%,
-    rgba(10, 16, 26, 0.85) 100%
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.015) 50%,
+    rgba(255, 255, 255, 0.04) 100%
   );
   padding: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.45);
   box-shadow: 
-    0 24px 60px -12px rgba(0, 0, 0, 0.75),
-    0 0 35px -8px rgba(16, 185, 129, 0.15),
-    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.3);
+    0 24px 60px -12px rgba(0, 0, 0, 0.65),
+    0 0 35px -8px rgba(16, 185, 129, 0.2),
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* Accessible High-Contrast Form Input */
@@ -476,4 +540,83 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.28);
+}
+
+.navbar-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: rgb(7 14 23 / 55%);
+  box-shadow: inset 0 0 0 1px rgb(238 255 252 / 25%);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.navbar-glass[data-webgl-glass]::before {
+  content: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero-copy {
+    animation: home-hero-enter 520ms ease-out both;
+  }
+
+  .home-hero-photo {
+    animation: home-hero-enter 650ms 100ms ease-out both;
+  }
+
+  .home-hero-image {
+    animation: home-hero-settle 7s ease-out both;
+  }
+}
+
+@keyframes home-hero-enter {
+  from {
+    opacity: 0.72;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes home-hero-settle {
+  from {
+    transform: scale(1.055);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-topic {
+    animation: home-hero-enter 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .home-topic[data-exiting="true"] {
+    opacity: 0;
+    transform: translateY(-0.4em);
+  }
+
+  .home-hero-scan {
+    background: linear-gradient(transparent 40%, rgb(104 255 225 / 20%) 50%, transparent 60%);
+    animation: home-hero-scan 2s 550ms ease-in-out both;
+  }
+
+  @supports (animation-timeline: view()) {
+    .home-section-enter {
+      animation: home-hero-enter linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 38%;
+    }
+
+    .home-section-enter:focus-within {
+      animation: none;
+    }
+  }
+}
+
+@keyframes home-hero-scan {
+  0% { opacity: 0; transform: translateY(-60%); }
+  24%, 74% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(60%); }
 }
