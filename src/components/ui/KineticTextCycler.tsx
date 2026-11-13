@@ -66,7 +66,7 @@ export function KineticTextCycler({ className = "" }: KineticTextCyclerProps) {
   }, [phrases.length]);
 
   return (
-    <span aria-hidden="true" className={`mt-3 grid min-w-0 overflow-hidden text-emerald-300 ${className}`}>
+    <span aria-hidden="true" className={`mt-3 grid min-w-0 overflow-hidden text-cyan-300 ${className}`}>
       {phrases.map((phrase) => (
         <span key={phrase} className="invisible col-start-1 row-start-1">{phrase}</span>
       ))}

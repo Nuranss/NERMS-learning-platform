@@ -7,11 +7,17 @@ import { useTranslation } from "@/i18n/translations";
 import { LiquidGlassPanel } from "@/components/ui/LiquidGlassPanel";
 import { GlassScene, GlassSwitch } from "@glass-sdk/liquid-glass";
 
-export function PresentationShowcase() {
+export type ShowcaseTab = "physical" | "purdue" | "protocols";
+
+interface PresentationShowcaseProps {
+  activeTab: ShowcaseTab;
+  onTabChange: (tab: ShowcaseTab) => void;
+}
+
+export function PresentationShowcase({ activeTab, onTabChange }: PresentationShowcaseProps) {
   const { language } = useLanguage();
   const t = useTranslation(language);
 
-  const [activeTab, setActiveTab] = useState<"physical" | "purdue" | "protocols">("physical");
   const [rpm, setRpm] = useState(3600);
   const [psi, setPsi] = useState(48.2);
   const [pumpRunning, setPumpRunning] = useState(true);
@@ -38,12 +44,12 @@ export function PresentationShowcase() {
         specular: 0.30,
         cornerRadius: 28,
       }}
-      className="w-full max-w-6xl xl:max-w-7xl mx-auto p-6 sm:p-8 lg:p-10 shadow-2xl"
+      className="w-full p-6 sm:p-8 lg:p-10 shadow-2xl"
     >
       {/* Header & Segmented Glass Tabs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-6 border-b border-white/[0.08]">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 mb-6 border-b border-white/[0.08]">
         <div className="flex items-center gap-2.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-cyan-400 motion-safe:animate-pulse" />
           <span className="text-xs sm:text-sm font-mono font-medium text-slate-200">
             {t.showcase.title}
           </span>
@@ -52,18 +58,18 @@ export function PresentationShowcase() {
         {/* Tactile 0-Blur Liquid Glass Segmented Tab Selector */}
         <div
           role="tablist"
-          className="relative inline-flex items-center p-1 rounded-full bg-black/30 border border-white/20 shadow-inner select-none self-start sm:self-auto"
+          className="relative inline-flex max-w-full flex-wrap items-center gap-1 rounded-2xl border border-white/20 bg-black/30 p-1 shadow-inner select-none self-start lg:self-auto"
         >
           <button
             type="button"
             role="tab"
             aria-selected={activeTab === "physical"}
-            onClick={() => setActiveTab("physical")}
+            onClick={() => onTabChange("physical")}
             className={`
               relative z-10 px-3.5 py-1.5 text-xs font-mono font-medium rounded-full transition-all duration-200
               ${
                 activeTab === "physical"
-                  ? "text-white bg-emerald-500/25 border border-emerald-400/40 shadow-[0_0_12px_rgba(16,185,129,0.3)] font-semibold"
+                  ? "text-white bg-cyan-500/25 border border-cyan-400/40 shadow-[0_0_12px_rgba(6,182,212,0.3)] font-semibold"
                   : "text-slate-400 hover:text-slate-200"
               }
             `}
@@ -75,7 +81,7 @@ export function PresentationShowcase() {
             type="button"
             role="tab"
             aria-selected={activeTab === "purdue"}
-            onClick={() => setActiveTab("purdue")}
+            onClick={() => onTabChange("purdue")}
             className={`
               relative z-10 px-3.5 py-1.5 text-xs font-mono font-medium rounded-full transition-all duration-200
               ${
@@ -92,7 +98,7 @@ export function PresentationShowcase() {
             type="button"
             role="tab"
             aria-selected={activeTab === "protocols"}
-            onClick={() => setActiveTab("protocols")}
+            onClick={() => onTabChange("protocols")}
             className={`
               relative z-10 px-3.5 py-1.5 text-xs font-mono font-medium rounded-full transition-all duration-200
               ${
@@ -119,7 +125,7 @@ export function PresentationShowcase() {
                   <GlassSwitch
                     material="regular"
                     appearance="dark"
-                    tint="#059669"
+                    tint="#0891b2"
                     refraction={16}
                     motion="full"
                     interactive
@@ -131,18 +137,18 @@ export function PresentationShowcase() {
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400 tracking-tight tabular-nums">
+                  <span className="text-2xl sm:text-3xl font-mono font-bold text-cyan-400 tracking-tight tabular-nums">
                     {pumpRunning ? rpm : 0}{" "}
                     <span className="text-xs text-slate-400 font-normal">{t.showcase.rpmUnit}</span>
                   </span>
-                  <span className="text-xs font-mono text-emerald-300/80 block mt-1">
+                  <span className="text-xs font-mono text-cyan-300/80 block mt-1">
                     {pumpRunning ? t.showcase.nominalFreq : "STOPPED"}
                   </span>
                 </div>
                 <div
                   className={`w-12 h-12 rounded-xl border flex items-center justify-center shrink-0 transition-colors duration-200 ${
                     pumpRunning
-                      ? "bg-emerald-500/10 text-emerald-300 border-emerald-400/25 shadow-[0_0_12px_rgba(16,185,129,0.2)]"
+                      ? "bg-cyan-500/10 text-cyan-300 border-cyan-400/25 shadow-[0_0_12px_rgba(6,182,212,0.2)]"
                       : "bg-white/[0.03] text-slate-500 border-white/10"
                   }`}
                 >
@@ -204,7 +210,7 @@ export function PresentationShowcase() {
                   <GlassSwitch
                     material="regular"
                     appearance="dark"
-                    tint="#059669"
+                    tint="#0891b2"
                     refraction={16}
                     motion="full"
                     interactive
@@ -218,7 +224,7 @@ export function PresentationShowcase() {
                 <div>
                   <span
                     className={`text-base sm:text-lg font-mono font-bold tracking-tight block mt-1 transition-colors duration-200 ${
-                      sisArmed ? "text-emerald-400" : "text-amber-400"
+                      sisArmed ? "text-cyan-400" : "text-amber-400"
                     }`}
                   >
                     {sisArmed ? t.showcase.sisStatus : "BYPASSED"}
@@ -230,7 +236,7 @@ export function PresentationShowcase() {
                 <div
                   className={`w-12 h-12 rounded-xl border flex items-center justify-center shrink-0 transition-colors duration-200 ${
                     sisArmed
-                      ? "bg-emerald-500/10 text-emerald-300 border-emerald-400/25 shadow-[0_0_12px_rgba(16,185,129,0.2)]"
+                      ? "bg-cyan-500/10 text-cyan-300 border-cyan-400/25 shadow-[0_0_12px_rgba(6,182,212,0.2)]"
                       : "bg-amber-500/10 text-amber-300 border-amber-400/25 shadow-[0_0_12px_rgba(245,158,11,0.2)]"
                   }`}
                 >
@@ -271,8 +277,8 @@ export function PresentationShowcase() {
               <span className="text-amber-300 font-semibold">{t.showcase.purdueLevels[3].name}</span>
               <span className="text-slate-400 text-xs">{t.showcase.purdueLevels[3].desc}</span>
             </div>
-            <div className="p-3.5 sm:p-4 rounded-xl bg-emerald-950/20 border border-emerald-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-              <span className="text-emerald-300 font-semibold">{t.showcase.purdueLevels[4].name}</span>
+            <div className="p-3.5 sm:p-4 rounded-xl bg-blue-950/20 border border-blue-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <span className="text-blue-300 font-semibold">{t.showcase.purdueLevels[4].name}</span>
               <span className="text-slate-400 text-xs">{t.showcase.purdueLevels[4].desc}</span>
             </div>
           </div>
@@ -287,7 +293,7 @@ export function PresentationShowcase() {
       {activeTab === "protocols" && (
         <div className="space-y-4 animate-in fade-in duration-200">
           <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/15 backdrop-blur-xl font-mono text-xs space-y-3 shadow-lg">
-            <div className="flex items-center justify-between text-slate-300 text-xs pb-3 border-b border-white/[0.08]">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-slate-300 text-xs pb-3 border-b border-white/[0.08]">
               <span>{t.showcase.modbusTitle}</span>
               <span className="text-rose-400 font-medium px-2.5 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20">
                 {t.showcase.insecureBadge}
@@ -308,10 +314,10 @@ export function PresentationShowcase() {
               </div>
               <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08]">
                 <span className="text-slate-400 text-xs block mb-1">{t.showcase.value}</span>
-                <span className="text-emerald-400 font-semibold tabular-nums">{t.showcase.forceOn}</span>
+                <span className="text-cyan-400 font-semibold tabular-nums">{t.showcase.forceOn}</span>
               </div>
             </div>
-            <div className="text-xs text-slate-400 pt-2 flex items-center justify-between border-t border-white/[0.04]">
+            <div className="text-xs text-slate-400 pt-2 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-white/[0.04]">
               <span><strong className="text-rose-400">{t.showcase.authNone}</strong></span>
               <span><strong className="text-rose-400">{t.showcase.encNone}</strong></span>
               <span><strong className="text-rose-400">{t.showcase.hashNone}</strong></span>

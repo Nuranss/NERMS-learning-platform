@@ -5,12 +5,27 @@ export const TRANSLATIONS = {
       aztuTitle: "Azerbaijan Technical University",
     },
     hero: {
-      title: "Learn industrial control systems and OT security",
-      desc: "Explore how industrial systems work, try a SCADA simulation, and learn how to protect the equipment behind it.",
+      title: "Industrial control systems",
+      titleAccent: "and OT security, explained.",
+      desc: "See how industrial equipment is controlled, experiment in a SCADA simulator, and learn what it takes to secure it.",
       cta: "Start Course",
       modules: "5 modules",
       checks: "14 knowledge checks",
-      imageAlt: "Industrial control room with operators and SCADA displays",
+    },
+    home: {
+      topics: "What you’ll learn",
+      topicsTitle: "From the control room",
+      topicsAccent: "to the network.",
+      features: {
+        physical: { title: "Control the physical process", desc: "Change simulated equipment states and see how the readings respond." },
+        purdue: { title: "Map the industrial network", desc: "Follow the Purdue Model from the enterprise network down to plant-floor equipment." },
+        protocols: { title: "Read an industrial command", desc: "Inspect a Modbus TCP packet and see how it sends a command to a pump." },
+      },
+      lab: "Interactive simulator",
+      labTitle: "Take the controls.",
+      labDesc: "Switch between equipment controls, network layers, and a sample Modbus TCP packet.",
+      closingTitle: "Start with the fundamentals.",
+      closingDesc: "Work through five modules on industrial equipment, networks, and security, with 14 checks along the way.",
     },
     showcase: {
       title: "Industrial System Explorer",
@@ -98,6 +113,12 @@ export const TRANSLATIONS = {
     footer: {
       copyright: "© 2026 NERMS",
       affiliation: "Azerbaijan Technical University (AzTU)",
+      description: "Learn how industrial control systems work and how to protect them.",
+      columns: [
+        { title: "Navigation", entries: ["Home", "Courses", "SCADA Simulator", "FAQ"] },
+        { title: "Information", entries: ["About NERMS", "Contact", "Privacy Policy", "Terms of Service"] },
+        { title: "Socials", entries: ["X (Twitter)", "LinkedIn", "Instagram"] },
+      ],
     },
   },
   az: {
@@ -106,12 +127,27 @@ export const TRANSLATIONS = {
       aztuTitle: "Azərbaycan Texniki Universiteti",
     },
     hero: {
-      title: "Sənaye idarəetmə sistemlərini və OT təhlükəsizliyini öyrənin",
-      desc: "Sənaye sistemlərinin necə işlədiyini kəşf edin, SCADA simulyasiyasını sınayın və bu avadanlığı necə qorumağı öyrənin.",
+      title: "Sənaye idarəetmə sistemləri",
+      titleAccent: "və OT təhlükəsizliyi.",
+      desc: "Sənaye avadanlığının necə idarə olunduğunu öyrənin, SCADA simulyatorunu sınayın və bu avadanlığın necə qorunduğunu kəşf edin.",
       cta: "Kursa başlayın",
       modules: "5 modul",
       checks: "14 bilik yoxlaması",
-      imageAlt: "Operatorlar və SCADA ekranları olan sənaye idarəetmə otağı",
+    },
+    home: {
+      topics: "Nə öyrənəcəksiniz",
+      topicsTitle: "İdarəetmə otağından",
+      topicsAccent: "sənaye şəbəkəsinə.",
+      features: {
+        physical: { title: "Fiziki prosesi idarə edin", desc: "Simulyasiyada avadanlığın vəziyyətini dəyişin və göstəricilərin necə dəyişdiyini izləyin." },
+        purdue: { title: "Sənaye şəbəkəsini araşdırın", desc: "Purdue modelində korporativ şəbəkədən istehsalat avadanlığına qədər səviyyələri öyrənin." },
+        protocols: { title: "Sənaye əmrini oxuyun", desc: "Modbus TCP paketini araşdırın və nasosa əmrin necə göndərildiyini görün." },
+      },
+      lab: "İnteraktiv simulyator",
+      labTitle: "İdarəetməni ələ alın.",
+      labDesc: "Avadanlıq idarəetməsi, şəbəkə səviyyələri və Modbus TCP paketinin nümunəsi arasında keçid edin.",
+      closingTitle: "Əsaslardan başlayın.",
+      closingDesc: "Sənaye avadanlığı, şəbəkələr və təhlükəsizlik üzrə beş modulu tamamlayın və 14 sualla biliklərinizi yoxlayın.",
     },
     showcase: {
       title: "Sənaye Sistemi Tədqiqatçısı",
@@ -199,6 +235,12 @@ export const TRANSLATIONS = {
     footer: {
       copyright: "© 2026 NERMS",
       affiliation: "Azərbaycan Texniki Universiteti (AzTU)",
+      description: "Sənaye idarəetmə sistemlərinin necə işlədiyini və onları necə qorumağı öyrənin.",
+      columns: [
+        { title: "Naviqasiya", entries: ["Ana səhifə", "Kurslar", "SCADA Simulyatoru", "Tez-tez verilən suallar"] },
+        { title: "Məlumat", entries: ["NERMS haqqında", "Əlaqə", "Məxfilik siyasəti", "İstifadə şərtləri"] },
+        { title: "Sosial şəbəkələr", entries: ["X (Twitter)", "LinkedIn", "Instagram"] },
+      ],
     },
   },
 } as const;

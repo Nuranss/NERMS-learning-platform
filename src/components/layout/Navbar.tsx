@@ -81,7 +81,7 @@ export function Navbar() {
           <div className="relative z-30 shrink-0">
             <Link
               href="/"
-              className="flex items-center group py-0.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="flex items-center group py-0.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             >
               <Image
                 src="/nerms-logo.png"
@@ -101,7 +101,7 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <span
                 className={`text-[11px] font-mono font-bold tracking-wider transition-colors duration-200 select-none ${
-                  !isAz ? "text-emerald-300" : "text-slate-400"
+                  !isAz ? "text-cyan-300" : "text-slate-400"
                 }`}
               >
                 EN
@@ -110,7 +110,7 @@ export function Navbar() {
                 <GlassSwitch
                   material="regular"
                   appearance="dark"
-                  tint="#059669"
+                  tint="#0891b2"
                   refraction={18}
                   motion="full"
                   interactive
@@ -121,7 +121,7 @@ export function Navbar() {
               </GlassScene>
               <span
                 className={`text-[11px] font-mono font-bold tracking-wider transition-colors duration-200 select-none ${
-                  isAz ? "text-emerald-300" : "text-slate-400"
+                  isAz ? "text-cyan-300" : "text-slate-400"
                 }`}
               >
                 AZ
@@ -133,14 +133,14 @@ export function Navbar() {
               href="/rooms/intro-to-ics"
               className="
                 relative inline-flex items-center gap-1.5 px-2 sm:px-4 py-1.5 sm:py-2
-                text-xs font-mono font-medium text-emerald-200
-                rounded-full bg-emerald-500/20 hover:bg-emerald-500/35
-                border border-emerald-400/40 hover:border-emerald-400/70
-                shadow-[0_4px_16px_rgba(16,185,129,0.3),inset_0_1px_1px_rgba(255,255,255,0.3)]
+                text-xs font-mono font-medium text-cyan-200
+                rounded-full bg-cyan-500/20 hover:bg-cyan-500/35
+                border border-cyan-400/40 hover:border-cyan-400/70
+                shadow-[0_4px_16px_rgba(6,182,212,0.3),inset_0_1px_1px_rgba(255,255,255,0.3)]
                 transition-all duration-200 active:scale-95 shrink-0
               "
             >
-              <BookOpen className="w-3.5 h-3.5 text-emerald-300" />
+              <BookOpen className="w-3.5 h-3.5 text-cyan-300" />
               <span className="hidden sm:inline">{t.nav.introCourse}</span>
               <span className="sm:hidden">{language === "az" ? "Kurs" : "Course"}</span>
             </Link>
@@ -161,7 +161,7 @@ export function Navbar() {
               "
             >
               <span className="font-semibold tracking-wide">AzTU</span>
-              <ExternalLink className="w-3.5 h-3.5 hidden text-slate-400 group-hover:text-emerald-300 sm:block transition-colors" />
+              <ExternalLink className="w-3.5 h-3.5 hidden text-slate-400 group-hover:text-cyan-300 sm:block transition-colors" />
             </a>
           </div>
         </div>
