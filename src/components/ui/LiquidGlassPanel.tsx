@@ -8,22 +8,8 @@ export function LiquidGlassStage({
 }: {
   children: React.ReactNode;
   className?: string;
-  defaultConfig?: any;
 }) {
-  return (
-    <div className={`relative w-full ${className}`}>
-      {/* Global SVG Optical Refraction Filters for 0-Blur Liquid Glass */}
-      <svg className="absolute w-0 h-0 pointer-events-none" aria-hidden="true">
-        <defs>
-          <filter id="liquid-glass-refraction" x="-10%" y="-10%" width="120%" height="120%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.02" numOctaves="2" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" result="refracted" />
-          </filter>
-        </defs>
-      </svg>
-      {children}
-    </div>
-  );
+  return <div className={`relative w-full ${className}`}>{children}</div>;
 }
 
 export interface LiquidGlassPanelProps extends React.HTMLAttributes<HTMLDivElement> {
